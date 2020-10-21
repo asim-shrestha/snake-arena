@@ -24,5 +24,5 @@ This project is tentatively called <b>Snake Arena</b> and is inspired by [Battle
 2. A python REST server in which the JavaScript front end will send game configuration information and recieve back game information.
 
 ## Deployment
-This project will be deployed through the use of Docker containers. Run the command below to deploy. Currently, running this will just display hello world through both JavaScript and Python but in the future will open up the web servers.
+This project will be deployed through the use of Docker containers. Run the command below to deploy. Currently, running this will just display hello world through both JavaScript and Python but in the future will open up the web servers. A C++ hello world is not displayed as there will be no container for C++.
 > `docker-compose up`
