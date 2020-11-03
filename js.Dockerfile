@@ -1,12 +1,14 @@
 FROM node:14-buster
 
-WORKDIR /app
+WORKDIR /client
 
 # Install dependencies
-# COPY ./app/package.json .
-# RUN npm install
+COPY ./client/package.json .
+COPY ./client/package-lock.json ./
+RUN npm install
+RUN npm install react-css-grid
 
 # Bundle app source
-COPY ./app /app
+COPY ./client ./
 
-CMD node app.js
+CMD ["npm", "start"]

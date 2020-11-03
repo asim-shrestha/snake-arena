@@ -2,7 +2,7 @@
 The final project for CMPT383 by Asim Shrestha.
 
 ## Topic Idea
-This project is tentatively called <b>Snake Arena</b> and is inspired by [BattleSnake](https://play.battlesnake.com/), an online AI competition in which you create your own snake AI to battle other AI's. This project is a web app and serves as both a stand alone game of snake in which you battle amongst other snakes and as a testing ground to build the best snake AI for BattleSnake.
+This project is tentatively called <b>Snake Arena</b> and is inspired by [BattleSnake](https://play.battlesnake.com/), an online AI competition in which you create your own snake AI to battle other AI's. This project is a web app and serves as both a stand alone game of snake in which you battle amongst AI's and as a testing ground to build the best snake AI for future battle snake tournaments.
 
 ### Prominent Inclusions:
 - Ability to configure arena options such as grid size, food spawn rate, and map type.
