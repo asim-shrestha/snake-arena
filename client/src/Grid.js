@@ -6,6 +6,7 @@ const GridBorder = styled.div`
 	background-color: white;
 	padding: 0.75em;
 	box-shadow: 2px 3px 8px 5px #888888;
+	display: inline-block;
 `
 
 const Grid = ({nRows, nCols}) => {
@@ -13,17 +14,19 @@ const Grid = ({nRows, nCols}) => {
 	for(let i = 0; i < nRows; i++) {
 		rows.push(
 			<tr key={`${i}`}>
-				{[...Array(nCols)].map((e, j) => <Tile/>)}
+				{[...Array(nCols)].map((e, j) => <Tile key={`${i}, ${j}`}/>)}
 			</tr>
 		);
 	}
 
 	return (
-		<table>
-			<GridBorder>
-			{rows}
-			</GridBorder>
-		</table>
+		<GridBorder>
+			<table>
+				<tbody>
+					{rows}
+				</tbody>
+			</table>
+		</GridBorder>
 	)
 }
 

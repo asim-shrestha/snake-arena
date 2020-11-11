@@ -2,10 +2,10 @@
 import styled from 'styled-components';
 
 const TileDiv = styled.div`
-	background-color: #d9d9d9;
-	border: 2px solid black;
-	width: 20px;
-	height: 20px;
+	background-color: #f1f1f1;
+	margin: 1px;
+	width: 50px;
+	height: 50px;
 `;
 
 const Tile = () => {
