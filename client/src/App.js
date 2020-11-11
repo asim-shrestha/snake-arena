@@ -7,7 +7,7 @@ function App() {
         <p>
           ssssSupsdsdsd <code>src/App.js</code> asd.
         </p>
-		  <Grid nRows={1} nCols={10}/>
+		  <Grid nRows={10} nCols={8}/>
       </header>
     </div>
   );
