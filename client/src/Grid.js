@@ -1,44 +1,29 @@
 import React from 'react'
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Tile from './Tile';
 import styled from 'styled-components';
 
-const GameGrid = styled.div`
-	display: grid;
-	grid-template-columns: 120px 120px 120px 
-	grid-template-rows: 120px 120px 120px 20px;
-	justify-content: center;
- `;
+const GridBorder = styled.div`
+	background-color: white;
+	padding: 0.75em;
+	box-shadow: 2px 3px 8px 5px #888888;
+`
 
 const Grid = ({nRows, nCols}) => {
-	// const rows = []
-	// for(let i = 0; i < nRows; i++) {
-	// 	rows.push(
-	// 		<Row key={i}>
-	// 			{[...Array(nCols)].map((e, j) => <Col key={i + j}><Tile/></Col>)}
-	// 		</Row>
-	// 	);
-	// }
+	const rows = []
+	for(let i = 0; i < nRows; i++) {
+		rows.push(
+			<tr key={`${i}`}>
+				{[...Array(nCols)].map((e, j) => <Tile/>)}
+			</tr>
+		);
+	}
 
 	return (
-		<GameGrid>
-			<Tile><Tile/> </Tile>
-			<Tile/> <Tile/>
-			<Tile/>
-			<Tile/>
-			<Tile/>
-			<Tile/>
-			<Tile/>
-			<Tile/>
-			<Tile/>
-			<Tile/>
-			<Tile/>
-			<Tile/>
-			<Tile/>
-			<Tile/>
-			<Tile/>
-		</GameGrid>
+		<table>
+			<GridBorder>
+			{rows}
+			</GridBorder>
+		</table>
 	)
 }
 

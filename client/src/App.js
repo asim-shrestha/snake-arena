@@ -2,7 +2,7 @@ import Grid from './Grid'
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{backgroundColor: '#C2CAD0', height: "100%"}}>
       <header className="App-header">
         <p>
           ssssSupsdsdsd <code>src/App.js</code> asd.
