@@ -8,7 +8,6 @@ export const SIDE_PADDING = "10em";
 const Page = styled.div`
 	margin: 4em ${SIDE_PADDING};
 	background-color: inherit;
-	text-color: white;
 `;
 
 function App() {
