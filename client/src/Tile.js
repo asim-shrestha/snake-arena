@@ -6,6 +6,9 @@ const TileDiv = styled.div`
 	margin: 1px;
 	width: 50px;
 	height: 50px;
+	&:hover {
+		border: 2px solid #d0d0d0;
+  }
 `;
 
 const Tile = () => {

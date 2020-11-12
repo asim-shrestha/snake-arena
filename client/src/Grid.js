@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 const GridBorder = styled.div`
 	background-color: white;
-	padding: 0.75em;
-	box-shadow: 2px 3px 8px 5px #888888;
+	padding: 2em;
+	box-shadow: 2px 3px 15px 7px #888888;
 	display: inline-block;
 `
 
