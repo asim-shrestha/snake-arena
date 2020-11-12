@@ -8,11 +8,12 @@ export const SIDE_PADDING = "10em";
 const Page = styled.div`
 	margin: 4em ${SIDE_PADDING};
 	background-color: inherit;
+	text-color: white;
 `;
 
 function App() {
   return (
-    <div className="App" style={{backgroundColor: "#C2CAD0"}}>
+    <div className="App" style={{backgroundColor: "#38a1f2"}}>
       <header className="App-header">
 				<AppNavBar />
       </header>

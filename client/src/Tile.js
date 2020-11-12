@@ -7,7 +7,7 @@ const TileDiv = styled.div`
 	width: 50px;
 	height: 50px;
 	&:hover {
-		border: 2px solid #d0d0d0;
+		border: 2px solid #38a1f2;
   }
 `;
 

@@ -1,11 +1,11 @@
 import React from 'react'
-import Tile from './Tile';
-import styled from 'styled-components';
+import Tile from './Tile'
+import styled from 'styled-components'
+import ShadedDiv from './ShadedDiv'
 
-const GridBorder = styled.div`
+const GridBorder = styled(ShadedDiv)`
 	background-color: white;
 	padding: 2em;
-	box-shadow: 2px 3px 15px 7px #888888;
 	display: inline-block;
 `
 
