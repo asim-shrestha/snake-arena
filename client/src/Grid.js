@@ -8,16 +8,53 @@ const GridBorder = styled(ShadedDiv)`
 	padding: 2em;
 	display: inline-block;
 `
+const getTileColor = (i, j, gameState) => {
+	const color = null
+	// Test for player
+	if(gameState.player) {
+		for (const coord of gameState.player.body) {
+			const {x, y} = coord;
+			if(x === j && y === i) {
+				return 'black';
+			}
+		}
+	}
 
-const Grid = ({nRows, nCols}) => {
+	// Test for food
+	if(gameState.food) {
+		for (const coord of gameState.food) {
+			const {x, y} = coord;
+			if(x === j && y === i) {
+				return 'orange';
+			}
+		}
+	}
+	
+	return color
+}
+
+const Grid = ({nRows, nCols, gameState}) => {
+	nCols = gameState.width;
+	nRows = gameState.height;
+	console.log(gameState)
+	// Fill background
 	const rows = []
 	for(let i = 0; i < nRows; i++) {
 		rows.push(
 			<tr key={`${i}`}>
-				{[...Array(nCols)].map((e, j) => <Tile key={`${i}, ${j}`}/>)}
+				{[...Array(nCols)].map((e, j) => <Tile key={`${i}, ${j}`} color={getTileColor(i, j, gameState)}/>)}
 			</tr>
 		);
 	}
+	
+	// // Fill player
+	// if(gameState.player) {
+	// 	for (const coord of gameState.player.body) {
+	// 		const {x, y} = coord;
+	// 		console.log(rows[y])
+	// 		rows[x][y] = <Tile key={`${x}, ${x}`}/>
+	// 	}
+	// }
 
 	return (
 		<GridBorder>

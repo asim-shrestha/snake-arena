@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 const TileDiv = styled.div`
-	background-color: #f1f1f1;
+	background-color: ${props => props.color};
 	margin: 1px;
 	width: 50px;
 	height: 50px;
@@ -11,10 +11,13 @@ const TileDiv = styled.div`
   }
 `;
 
-const Tile = () => {
+const Tile = ({color}) => {
+	// Default to a wall
+	if (!color) { color = "#f1f1f1"}
+
 	return (
 		<td>
-			<TileDiv/>
+			<TileDiv color={color}/>
 		</td>
 	)
 }
