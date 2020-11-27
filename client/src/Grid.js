@@ -15,7 +15,7 @@ const getTileColor = (i, j, gameState) => {
 		for (const coord of gameState.player.body) {
 			const {x, y} = coord;
 			if(x === j && y === i) {
-				return 'black';
+				return '#38a1f2';
 			}
 		}
 	}
@@ -36,7 +36,7 @@ const getTileColor = (i, j, gameState) => {
 const Grid = ({nRows, nCols, gameState}) => {
 	nCols = gameState.width;
 	nRows = gameState.height;
-	console.log(gameState)
+
 	// Fill background
 	const rows = []
 	for(let i = 0; i < nRows; i++) {
