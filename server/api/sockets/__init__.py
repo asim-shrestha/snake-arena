@@ -37,7 +37,6 @@ async def gameInterval(sid, state):
 async def keydown(sid, keyCode):
 	keyCode = int(keyCode)
 	vel = get_velocity(keyCode)
-	logging.error(vel)
 	await sio.save_session(sid, vel)
 	
 def get_velocity(keyCode):

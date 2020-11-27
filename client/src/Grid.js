@@ -2,11 +2,12 @@ import React from 'react'
 import Tile from './Tile'
 import styled from 'styled-components'
 import ShadedDiv from './ShadedDiv'
+import Scores from './Scores';
 
 const GridBorder = styled(ShadedDiv)`
 	background-color: white;
 	padding: 2em;
-	display: inline-block;
+	display: inline-flex;
 `
 const getTileColor = (i, j, gameState) => {
 	const color = null
@@ -37,7 +38,7 @@ const Grid = ({nRows, nCols, gameState}) => {
 	nCols = gameState.width;
 	nRows = gameState.height;
 
-	// Fill background
+	// Fill grid 
 	const rows = []
 	for(let i = 0; i < nRows; i++) {
 		rows.push(
@@ -46,15 +47,6 @@ const Grid = ({nRows, nCols, gameState}) => {
 			</tr>
 		);
 	}
-	
-	// // Fill player
-	// if(gameState.player) {
-	// 	for (const coord of gameState.player.body) {
-	// 		const {x, y} = coord;
-	// 		console.log(rows[y])
-	// 		rows[x][y] = <Tile key={`${x}, ${x}`}/>
-	// 	}
-	// }
 
 	return (
 		<GridBorder>
@@ -63,6 +55,7 @@ const Grid = ({nRows, nCols, gameState}) => {
 					{rows}
 				</tbody>
 			</table>
+			<Scores/>
 		</GridBorder>
 	)
 }
