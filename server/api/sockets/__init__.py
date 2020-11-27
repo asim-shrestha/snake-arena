@@ -7,7 +7,6 @@ from . import SocketHelper
 sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins=[], logger=True)
 sio_app = socketio.ASGIApp(sio)
 
-FRAME_RATE = 10
 @sio.event
 def connect(sid, environ):
 	print('connect ', sid)
