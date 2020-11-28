@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ShadedDiv from './ShadedDiv';
 
 const ConfigurationBoard = styled(ShadedDiv)`
+	border-radius: 25px;
 	background-color: white;
 	padding: 1em;
 	margin-left: 2em;
@@ -14,7 +15,12 @@ const ConfigurationBoard = styled(ShadedDiv)`
 const Configuration = () => {
 	return (
 		<ConfigurationBoard>
-			<Slider text="Hello" min="0" max="100"/>
+			<h2>Game Settings: </h2>
+			<div className="m-3">
+				<Slider text="Speed (FPS)" min="1" max="15"/>
+				<Slider text="Game Width" min="5" max="10"/>
+				<Slider text="Game Height" min="5" max="10"/>
+			</div>
 		</ConfigurationBoard>
 	)
 }
