@@ -3,6 +3,7 @@ import socketio
 import asyncio
 import logging
 from . import SocketHelper
+from . import Directions
 
 sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins=[], logger=True)
 sio_app = socketio.ASGIApp(sio)
@@ -40,11 +41,11 @@ async def keydown(sid, keyCode):
 	await sio.save_session(sid, vel)
 	
 def get_velocity(keyCode):
-	if keyCode == 37: return {'x': -1, 'y':  0}
-	elif keyCode == 38: return {'x':  0, 'y':  -1}
-	elif keyCode == 39: return {'x':  1, 'y':  0}
-	elif keyCode == 40: return {'x':  0, 'y': 1}
-	else: return {'x':  0, 'y': 0}
+	if keyCode == 37: return Directions.Left
+	elif keyCode == 38: return Directions.Up
+	elif keyCode == 39: return Directions.Right
+	elif keyCode == 40: return Directions.Down
+	else: return Directions.Still
 
 @sio.event
 def test(sid, data):

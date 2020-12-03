@@ -21,7 +21,14 @@ def create_game_state(width, height):
 		'food': [
 			{'x': 3, 'y': 3},
 			{'x': 4, 'y': 4},
-		]
+		],
+		'snakes': {
+			'id': 1,
+			'body': [
+				{'x': 0, 'y': 0},
+				{'x': 0, 'y': 1},
+			]
+		}
 	}
 
 def game_loop(state, session):

@@ -73,7 +73,6 @@ const GamePage = () => {
 					</BlockButtonGroup>
 				</ShadedDiv>
 			</CenteredDiv>
-			{/* <ShadedText>Configuration</ShadedText> */}
 			<Configuration/>
 		</div>
 	);

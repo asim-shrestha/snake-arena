@@ -1,7 +1,7 @@
 import React from 'react';
-import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button'
 import styled from 'styled-components';
+import SnakeScore from './SnakeScore';
 
 const ScoreBoard = styled.div`
 	margin: 1em;
@@ -17,14 +17,12 @@ const GroundedDiv = styled(Button)`
 	width: 95%;
 `
 
-const Scores = ({nRows, nCols}) => {
+const Scores = () => {
 	return (
 		<ScoreBoard>
 			<h2>Snakes:</h2>
-			<h4>Asim ({"45/100"})</h4>
-			<ProgressBar animated now={45} />
-			<h4>Snake 2</h4>
-			<ProgressBar animated now={10} />
+			<SnakeScore name="Asim" hunger={45} isWinner={true} isDead={true}/>
+			<SnakeScore name="Fake" hunger={10} isWinner={false} isDead={false}/>
 			<GroundedDiv>Add Snake</GroundedDiv>
 		</ScoreBoard>
 	)
