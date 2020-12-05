@@ -26,7 +26,7 @@ const getTileColor = (i, j, gameState) => {
 		for (const coord of snake.body) {
 			const {x, y} = coord;
 			if(x === j && y === i) {
-				return snake.alive ? '#38a1f2' : '#b2d2eb';
+				return snake.isAlive ? '#38a1f2' : '#b2d2eb';
 			}
 		}
 	}
@@ -43,7 +43,7 @@ const Grid = ({nRows, nCols, gameState}) => {
 	for(let i = 0; i < nRows; i++) {
 		rows.push(
 			<tr key={`${i}`}>
-				{[...Array(nCols)].map((e, j) => <Tile key={`${i}, ${j}`} color={getTileColor(i, j, gameState)}/>)}
+				{[...Array(nCols)].map((_, j) => <Tile key={`${i}, ${j}`} color={getTileColor(i, j, gameState)}/>)}
 			</tr>
 		);
 	}
@@ -55,7 +55,7 @@ const Grid = ({nRows, nCols, gameState}) => {
 					{rows}
 				</tbody>
 			</table>
-			<Scores/>
+			<Scores snakes={gameState.snakes}/>
 		</GridBorder>
 	)
 }

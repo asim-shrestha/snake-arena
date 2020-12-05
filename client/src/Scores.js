@@ -17,12 +17,20 @@ const GroundedDiv = styled(Button)`
 	width: 95%;
 `
 
-const Scores = () => {
+const Scores = ({snakes}) => {
+	if (snakes == null) {
+		snakes = [];
+	}
+console.log(snakes)
 	return (
 		<ScoreBoard>
 			<h2>Snakes:</h2>
-			<SnakeScore name="Asim" hunger={45} isWinner={true} isDead={true}/>
-			<SnakeScore name="Fake" hunger={10} isWinner={false} isDead={false}/>
+			{
+				snakes.map((snake, i) => 
+					<SnakeScore id={i} snake={snake}/>
+				)
+			}
+	
 			<GroundedDiv>Add Snake</GroundedDiv>
 		</ScoreBoard>
 	)

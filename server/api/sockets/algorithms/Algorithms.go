@@ -2,7 +2,6 @@ package main
 
 import (
 	"C"
-	"fmt"
 	"math/rand"
 	"strconv"
 	"strings"
@@ -46,6 +45,13 @@ func RandomSnake(stateStr, currX, currY string) *C.char {
 //export HungrySnake
 // Snake that moves directly to the nearest food
 func HungrySnake(stateStr, currX, currY string) *C.char {
+	state := DecodeState(stateStr, currX, currY)
+	validPositions := GetValidPositions(state)
+
+	// No valid directions possible, return a random direction
+	if len(validPositions) == 0 { return GetRandomDirection() }
+
+	// Get position of closest food
 	return GetRandomDirection()
 }
 

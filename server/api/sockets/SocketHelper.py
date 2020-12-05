@@ -17,8 +17,9 @@ def create_game_state(width, height):
 		'snakes': [
 			{
 				'name': 'Asim',
+				'hunger': 105,
 				'id': 'player',
-				'alive': True,
+				'isAlive': True,
 				'pos': {
 					'x': 0,
 					'y': 1,
@@ -30,8 +31,9 @@ def create_game_state(width, height):
 			},
 			{
 				'name': 'Bad',
+				'hunger': 105,
 				'id': '1',
-				'alive': True,
+				'isAlive': True,
 				'pos': {
 					'x': 5,
 					'y': 6,
@@ -39,19 +41,6 @@ def create_game_state(width, height):
 				'body': [
 					{'x': 5, 'y': 5},
 					{'x': 5, 'y': 6},
-				]
-			},
-			{
-				'name': 'Bad',
-				'id': '1',
-				'alive': True,
-				'pos': {
-					'x': 9,
-					'y': 9,
-				},
-				'body': [
-					{'x': 9, 'y': 9},
-					{'x': 9, 'y': 9},
 				]
 			},
 		]
@@ -65,12 +54,12 @@ def game_loop(state, session):
 	update_snake_states(state, session)
 	randomly_add_food(state)
 	numSnakes = count_living_snakes(state)
-	# snakes still alive
-	return numSnakes - 1
+	# snakes still isAlive
+	return numSnakes
 
 def update_snake_positions(state, session):
 	for snake in state['snakes']:
-		if snake['alive']:
+		if snake['isAlive']:
 			update_position(state, snake, session)
 
 
@@ -104,29 +93,36 @@ def get_ai_velocity(state, snake, session, sid):
 	
 def update_snake_states(state, session):
 	for snake in state['snakes']:
-		if snake['alive'] == False:
+		if snake['isAlive'] == False:
 			continue
 
 		if is_snake_out_of_bounds(state, snake):
 			logging.error("Snake out of bounds")
-			snake['alive'] = False
+			snake['isAlive'] = False
 			continue
 
 		if is_snake_collided_self(state, snake):
 			logging.error("Snake collided with itself")
-			snake['alive'] = False
+			snake['isAlive'] = False
 			continue
 
 		if is_snake_collided_other(state, snake):
 			logging.error("Snake collided with another snake")
-			snake['alive'] = False
+			snake['isAlive'] = False
 			continue
-
+		
+		snake['hunger'] -= 0.5
 		if is_snake_eating(state, snake):
 			# Add one more tail positon
 			snake['body'].append(snake['body'][-1])
+			snake['hunger'] = 100
+		
+		if snake['hunger'] == 0:
+			logging.error("Snake died of hunger")
+			snake['isAlive'] = False
+			continue
 
-		# Snake still alive
+		# Snake still isAlive
 		move_snake(state, snake)
 
 def is_snake_out_of_bounds(state, snake):
@@ -144,7 +140,7 @@ def is_snake_collided_self(state, snake):
 def is_snake_collided_other(state, snake):
 	for otherSnake in state['snakes']:
 		# Don't check dead snakes
-		if not otherSnake['alive']: continue
+		if not otherSnake['isAlive']: continue
 
 		for pos in otherSnake['body']:
 			if pos['x'] == snake['pos']['x'] and pos['y'] == snake['pos']['y']:
@@ -186,7 +182,7 @@ def find_empty_position(state):
 
 	# Remove positions with other living snakes
 	for snake in state['snakes']:
-		if snake['alive'] == False: continue
+		if snake['isAlive'] == False: continue
 		for pos in snake['body']:
 			if pos in positions: positions.remove(pos)
 
@@ -200,6 +196,11 @@ def find_empty_position(state):
 def count_living_snakes(state):
 	numLivingSnakes = 0
 	for snake in state['snakes']:
-		if snake['alive'] == True:
+		if snake['isAlive'] == True:
 			numLivingSnakes += 1
 	return numLivingSnakes
+
+def set_winner(state):
+	for snake in state['snakes']:
+		if snake['isAlive'] == True:
+			snake['isWinner'] = True
