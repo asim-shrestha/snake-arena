@@ -106,6 +106,11 @@ def update_snake_states(state, session):
 			snake['isAlive'] = False
 			continue
 
+		if is_snake_collided_head(state, snake):
+			logging.error("Head to head collision")
+			snake['isAlive'] = False
+			continue
+
 		if is_snake_collided_other(state, snake):
 			logging.error("Snake collided with another snake")
 			snake['isAlive'] = False
@@ -135,6 +140,23 @@ def is_snake_collided_self(state, snake):
 		if pos['x'] == snake['pos']['x'] and pos['y'] == snake['pos']['y']:
 			return True
 	
+	return False
+
+def is_snake_collided_head(state, snake):
+	for otherSnake in state['snakes']:
+		# Don't check dead snakes or self
+		if not otherSnake['isAlive']: continue
+		if otherSnake['name'] == snake['name'] and otherSnake['id'] == snake['id']: continue
+
+		# Only check for the head
+		if snake['pos'] == otherSnake['pos']:
+			if len(snake['body']) < len(otherSnake['body']): return True
+
+			# Both equal, also kill other snake
+			elif len(snake['body']) < len(otherSnake['body']):
+				otherSnake['isAlive'] = False
+				return True
+
 	return False
 
 def is_snake_collided_other(state, snake):
