@@ -17,6 +17,7 @@ const SnakeScore = ({snake}) => {
 
 	// Cap hunger to 100
 	if (hunger && hunger > 100) { hunger = 100; }
+	if (hunger && hunger < 0) { hunger = 0; }
 
 	return (
 		<>

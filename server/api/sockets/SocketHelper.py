@@ -110,13 +110,13 @@ def update_snake_states(state, session):
 		if snake['isAlive'] == False:
 			continue
 
-		snake['hunger'] -= 0.5
+		snake['hunger'] -= 2
 		if is_snake_eating(state, snake):
 			# Add one more tail positon
 			snake['body'].append(snake['body'][-1])
 			snake['hunger'] = 100
 		
-		if snake['hunger'] == 0:
+		if snake['hunger'] <= 0:
 			logging.error("Snake died of hunger")
 			snake['isAlive'] = False
 			continue

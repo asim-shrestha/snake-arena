@@ -22,7 +22,7 @@ async def start_game(sid, data):
 
 async def gameInterval(sid, state):
 	# Wait for frames 
-	FPS = 11
+	FPS = 10
 	await asyncio.sleep(1 / FPS)
 	
 	session = await sio.get_session(sid)
