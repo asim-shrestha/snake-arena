@@ -30,7 +30,7 @@ def create_game_state(width, height):
 			},
 			{
 				'name': 'Bad',
-				'id': '0',
+				'id': '1',
 				'alive': True,
 				'pos': {
 					'x': 5,
@@ -40,7 +40,20 @@ def create_game_state(width, height):
 					{'x': 5, 'y': 5},
 					{'x': 5, 'y': 6},
 				]
-			}
+			},
+			{
+				'name': 'Bad',
+				'id': '1',
+				'alive': True,
+				'pos': {
+					'x': 9,
+					'y': 9,
+				},
+				'body': [
+					{'x': 9, 'y': 9},
+					{'x': 9, 'y': 9},
+				]
+			},
 		]
 	}
 
@@ -53,26 +66,24 @@ def game_loop(state, session):
 	randomly_add_food(state)
 	numSnakes = count_living_snakes(state)
 	# snakes still alive
-	return numSnakes
+	return numSnakes - 1
 
 def update_snake_positions(state, session):
 	for snake in state['snakes']:
-		logging.error(snake['alive'])
 		if snake['alive']:
-			update_position(snake, session)
+			update_position(state, snake, session)
 
 
-def update_position(snake, session):
+def update_position(state, snake, session):
 	sid = snake['id']
 	if sid == 'player':
 		vel = get_player_velocity(snake, session)
 	else:
-		vel = get_ai_velocity(snake, session, sid)
+		vel = get_ai_velocity(state, snake, session, sid)
 
 	# Update position based on velocity
 	snake['pos']['x'] += vel['x']
 	snake['pos']['y'] += vel['y']
-
 
 def get_player_velocity(player, session):
 	if 'x' in session.keys() and 'y' in session.keys():
@@ -83,14 +94,14 @@ def get_player_velocity(player, session):
 		yVel = 0
 	return {'x': xVel, 'y': yVel}
 
-
-def get_ai_velocity(snake, session, sid):
+def get_ai_velocity(state, snake, session, sid):
 	pos = 'left' # Default value
 	if sid == '0':
 		pos = AlgorithmsHelper.bad_snake()
+	elif sid == '1':
+		pos = AlgorithmsHelper.random_snake(state, snake)
 	return Directions.GetVelocityFromString(pos)
 	
-
 def update_snake_states(state, session):
 	for snake in state['snakes']:
 		if snake['alive'] == False:
@@ -118,7 +129,6 @@ def update_snake_states(state, session):
 		# Snake still alive
 		move_snake(state, snake)
 
-
 def is_snake_out_of_bounds(state, snake):
 	xOut = snake['pos']['x'] < 0 or snake['pos']['x'] >= state['width']
 	yOut = snake['pos']['y'] < 0 or snake['pos']['y'] >= state['height']
@@ -141,7 +151,6 @@ def is_snake_collided_other(state, snake):
 				return True
 
 	return False
-
 
 def is_snake_eating(state, snake):
 	# Test if snake is on any food positon

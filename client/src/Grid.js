@@ -11,22 +11,22 @@ const GridBorder = styled(ShadedDiv)`
 `
 const getTileColor = (i, j, gameState) => {
 	const color = null
-	// Test for player
-	for (const snake of gameState.snakes) {
-		for (const coord of snake.body) {
-			const {x, y} = coord;
-			if(x === j && y === i) {
-				return '#38a1f2';
-			}
-		}
-	}
-
 	// Test for food
 	if(gameState.food) {
 		for (const coord of gameState.food) {
 			const {x, y} = coord;
 			if(x === j && y === i) {
 				return 'orange';
+			}
+		}
+	}
+
+	// Test for player
+	for (const snake of gameState.snakes) {
+		for (const coord of snake.body) {
+			const {x, y} = coord;
+			if(x === j && y === i) {
+				return snake.alive ? '#38a1f2' : '#b2d2eb';
 			}
 		}
 	}

@@ -65,21 +65,19 @@ extern "C" {
 #endif
 
 
-extern char* bar();
-
 // Snake that moves completely randomly
 
 extern char* BadSnake();
 
 // Snake that moves randomly but avoids obstacles
 
-extern char* RandomSnake();
+extern char* RandomSnake(GoString p0, GoString p1, GoString p2);
 
 // Snake that moves directly to the nearest food
 
-extern char* HungrySnake();
+extern char* HungrySnake(GoString p0, GoString p1, GoString p2);
 
-extern char* SmartSnake();
+extern char* SmartSnake(GoString p0, GoString p1, GoString p2);
 
 #ifdef __cplusplus
 }

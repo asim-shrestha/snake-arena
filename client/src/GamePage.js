@@ -32,6 +32,7 @@ const GamePage = () => {
 	const [gameState, setGameState] = useState({
 		width: 10,
 		height: 10,
+		snakes: []
 	});
 
 	useEffect(() => {
