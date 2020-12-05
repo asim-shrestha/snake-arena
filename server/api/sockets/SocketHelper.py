@@ -96,6 +96,20 @@ def update_snake_states(state, session):
 		if snake['isAlive'] == False:
 			continue
 
+		snake['hunger'] -= 0.5
+		if is_snake_eating(state, snake):
+			# Add one more tail positon
+			snake['body'].append(snake['body'][-1])
+			snake['hunger'] = 100
+		
+		if snake['hunger'] == 0:
+			logging.error("Snake died of hunger")
+			snake['isAlive'] = False
+			continue
+
+		# Snake still isAlive
+		move_snake(state, snake)
+
 		if is_snake_out_of_bounds(state, snake):
 			logging.error("Snake out of bounds")
 			snake['isAlive'] = False
@@ -116,19 +130,6 @@ def update_snake_states(state, session):
 			snake['isAlive'] = False
 			continue
 		
-		snake['hunger'] -= 0.5
-		if is_snake_eating(state, snake):
-			# Add one more tail positon
-			snake['body'].append(snake['body'][-1])
-			snake['hunger'] = 100
-		
-		if snake['hunger'] == 0:
-			logging.error("Snake died of hunger")
-			snake['isAlive'] = False
-			continue
-
-		# Snake still isAlive
-		move_snake(state, snake)
 
 def is_snake_out_of_bounds(state, snake):
 	xOut = snake['pos']['x'] < 0 or snake['pos']['x'] >= state['width']
@@ -136,7 +137,7 @@ def is_snake_out_of_bounds(state, snake):
 	return xOut or yOut
 
 def is_snake_collided_self(state, snake):
-	for pos in snake['body']:
+	for pos in snake['body'][:-1]:
 		if pos['x'] == snake['pos']['x'] and pos['y'] == snake['pos']['y']:
 			return True
 	
@@ -163,6 +164,7 @@ def is_snake_collided_other(state, snake):
 	for otherSnake in state['snakes']:
 		# Don't check dead snakes
 		if not otherSnake['isAlive']: continue
+		if otherSnake['name'] == snake['name'] and otherSnake['id'] == snake['id']: continue
 
 		for pos in otherSnake['body']:
 			if pos['x'] == snake['pos']['x'] and pos['y'] == snake['pos']['y']:
