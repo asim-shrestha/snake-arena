@@ -12,8 +12,8 @@ const GridBorder = styled(ShadedDiv)`
 const getTileColor = (i, j, gameState) => {
 	const color = null
 	// Test for player
-	if(gameState.player) {
-		for (const coord of gameState.player.body) {
+	for (const snake of gameState.snakes) {
+		for (const coord of snake.body) {
 			const {x, y} = coord;
 			if(x === j && y === i) {
 				return '#38a1f2';

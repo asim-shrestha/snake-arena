@@ -16,6 +16,6 @@ DirectionStringToJSON = {
 
 # Returns JSON encoding of direction from a direction string
 # Used 
-def GetDirectionFromString(dirStr):
+def GetVelocityFromString(dirStr):
 	dirStr = str.lower(dirStr)
 	return DirectionStringToJSON[dirStr]

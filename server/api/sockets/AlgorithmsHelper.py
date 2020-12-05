@@ -9,9 +9,4 @@ lib = cdll.LoadLibrary('./api/sockets/algorithms/Algorithms.so')
 
 def bad_snake():
 	lib.BadSnake.restype = c_char_p
-	return lib.BadSnake().decode("utf-8") 
-
-print("Result:", bad_snake())
-bad_snake()
-bad_snake()
-bad_snake()
+	return lib.BadSnake().decode("utf-8")
