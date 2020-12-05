@@ -76,12 +76,26 @@ def update_position(state, snake, session):
 
 def get_player_velocity(player, session):
 	if 'x' in session.keys() and 'y' in session.keys():
-		xVel = session['x']
-		yVel = session['y']
+		vel = {'x': session['x'], 'y':session['y']}
 	else:
-		xVel = 1
-		yVel = 0
-	return {'x': xVel, 'y': yVel}
+		vel = {'x': 1, 'y':0}
+
+	vel = update_velocity_if_running_into_self(vel, player)
+	return vel
+
+def update_velocity_if_running_into_self(vel, player):
+	# Get current velocity of snake
+	tail = player['body'][-1]
+	beforeTail = player['body'][-2]
+	prevVel = {'x': tail['x'] - beforeTail['x'], 'y': tail['y'] - beforeTail['y']}
+
+	# If running into self, just use the previous vel
+	if vel['x']*-1 == prevVel['x'] and vel['y']*-1 == prevVel['y']:
+		return prevVel
+
+	# Not running into self, use new vel
+	return vel
+
 
 def get_ai_velocity(state, snake, session, sid):
 	pos = 'left' # Default value
