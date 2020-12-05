@@ -1,17 +1,17 @@
 from ctypes import *
 from ctypes import cdll
 import time
+import os
 
-class go_string(Structure):
-    _fields_ = [
-        ("p", c_char_p),
-        ("n", c_int)]
 
-lib = cdll.LoadLibrary('./algorithms/Algorithms.so')
+# Build with -> go build -buildmode=c-shared -o Algorithms.so Algorithms.go
+lib = cdll.LoadLibrary('./api/sockets/algorithms/Algorithms.so')
 
-def bar(str):
-    lib.bar.restype = c_char_p
-    a = lib.bar()
-    print(a)
+def bad_snake():
+	lib.BadSnake.restype = c_char_p
+	return lib.BadSnake().decode("utf-8") 
 
-bar("haha")
+print("Result:", bad_snake())
+bad_snake()
+bad_snake()
+bad_snake()

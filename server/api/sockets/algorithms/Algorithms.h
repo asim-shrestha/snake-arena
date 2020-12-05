@@ -3,16 +3,14 @@
 /* package command-line-arguments */
 
 
-#line 1 "cgo-builtin-export-prolog"
+#line 1 "cgo-builtin-prolog"
 
 #include <stddef.h> /* for ptrdiff_t below */
 
 #ifndef GO_CGO_EXPORT_PROLOGUE_H
 #define GO_CGO_EXPORT_PROLOGUE_H
 
-#ifndef GO_CGO_GOSTRING_TYPEDEF
 typedef struct { const char *p; ptrdiff_t n; } _GoString_;
-#endif
 
 #endif
 
@@ -52,9 +50,7 @@ typedef double _Complex GoComplex128;
 */
 typedef char _check_for_64_bit_pointer_matching_GoInt[sizeof(void*)==64/8 ? 1:-1];
 
-#ifndef GO_CGO_GOSTRING_TYPEDEF
 typedef _GoString_ GoString;
-#endif
 typedef void *GoMap;
 typedef void *GoChan;
 typedef struct { void *t; void *v; } GoInterface;
@@ -68,7 +64,22 @@ typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
 extern "C" {
 #endif
 
+
 extern char* bar();
+
+// Snake that moves completely randomly
+
+extern char* BadSnake();
+
+// Snake that moves randomly but avoids obstacles
+
+extern char* RandomSnake();
+
+// Snake that moves directly to the nearest food
+
+extern char* HungrySnake();
+
+extern char* SmartSnake();
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,6 @@
 import logging
 import random
+from . import AlgorithmsHelper
 
 def create_game_state(width, height):
 	return {
