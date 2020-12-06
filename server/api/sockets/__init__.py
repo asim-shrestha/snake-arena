@@ -16,7 +16,7 @@ def connect(sid, environ):
 @sio.event
 async def start_game(sid, data):
 	await sio.save_session(sid, {}) # Clear session
-	state = SocketHelper.create_game_state(data['width'], data['height'])
+	state = SocketHelper.create_game_state(data['width'], data['height'], data['snakes'])
 	sio.start_background_task(gameInterval, sid, state)
 	return "OK" 
 

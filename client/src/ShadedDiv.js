@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const ShadedDiv = styled.div`
-	box-shadow: 2px 3px 40px 7px #0072cf;
+	box-shadow: 2px 3px 50px 7px #0072cf;
 	margin=: 0;
 `
 

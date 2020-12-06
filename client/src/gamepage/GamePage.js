@@ -15,10 +15,11 @@ const CenteredDiv = styled.div`
 	margin: 2em;
 `;
 
-const ShadedText = styled.h1`
-	color: white;
-	text-shadow: 1px 1px 10px #0072cf;
-`
+// TODO DELETE
+// const ShadedText = styled.h1`
+// 	color: white;
+// 	text-shadow: 1px 1px 10px #0072cf;
+// `
 
 const BlockButtonGroup = styled(ButtonGroup)`
 	.btn {
@@ -55,7 +56,7 @@ const GamePage = () => {
 		}
 
 		// Start the game
-		socket.emit('start_game', {width: gameState.width, height: gameState.height});
+		socket.emit('start_game', {width: gameState.width, height: gameState.height, snakes: gameState.snakes});
 		socket.on('game_state', (data) => {
 			setGameState(data);
 		})

@@ -54,11 +54,12 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 		return true;
 	};
 
+	// Place snake in corners
 	const getSnakePosition = () => {
-		if (gameState.snakes.length === 0) { return { x: 0, y: 0 }; }
-		else if (gameState.snakes.length === 1) { return { x: gameState.width - 1, y: 0 }; }
-		else if (gameState.snakes.length === 2) { return { x: 0, y: gameState.height - 1 }; }
-		return { x: gameState.width - 1, y: gameState.height - 1 };
+		if (gameState.snakes.length === 0) { return { x: 3, y: 3 }; }
+		else if (gameState.snakes.length === 1) { return { x: gameState.width - 4, y: 3 }; }
+		else if (gameState.snakes.length === 2) { return { x: 3, y: gameState.height - 4 }; }
+		return { x: gameState.width - 4, y: gameState.height - 4 };
 	};
 
 	const addSnakeToGameState = () => {
@@ -86,7 +87,8 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 		if (isValidSnake()) {
 			const snakeName = name;
 			addSnakeToGameState();
-			resetValues();
+			setName("")
+			setAlertText("")
 			setAddedSnakeName(snakeName);
 		}
 	};

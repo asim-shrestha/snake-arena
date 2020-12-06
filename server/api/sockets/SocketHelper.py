@@ -3,7 +3,21 @@ import random
 from . import AlgorithmsHelper
 from . import Directions
 
-def create_game_state(width, height):
+def create_game_state(width, height, snakes):
+	# Position snakes
+	snakeNum = 0
+	for snake in snakes:
+		snake['hunger'] = 105
+		snake['isAlive'] = True
+		snake['death'] = ""
+		snake['isWinner'] = False
+
+		# Set pos
+		start = get_snake_start(snakeNum, width, height)
+		snake['body'] = [start.copy(), start.copy()] # Two body peices on top of each other
+		snake['pos'] = start.copy()
+		snakeNum += 1
+
 	return {
 		'width': width,
 		'height': height,
@@ -12,70 +26,14 @@ def create_game_state(width, height):
 		'turns_since_food': 0,
 		'food': [
 		],
-		'snakes': [
-			{
-				'name': 'Asim',
-				'hunger': 105,
-				'id': '2',
-				'isAlive': True,
-				'pos': {
-					'x': 2,
-					'y': 1,
-				},
-				'body': [
-					{'x': 2, 'y': 1},
-					{'x': 2, 'y': 1},
-					# {"x":0,"y":6},{"x":0,"y":5},{"x":0,"y":4},{"x":1,"y":4},{"x":1,"y":5},{"x":1,"y":6},{"x":2,"y":6},{"x":3,"y":6},{"x":4,"y":6},{"x":5,"y":6},{"x":5,"y":6},{"x":6,"y":6},{"x":6,"y":5},{"x":5,"y":5},{"x":4,"y":5},{"x":3,"y":5},{"x":2,"y":5},{"x":2,"y":4},{"x":3,"y":4},{"x":3,"y":3},{"x":2,"y":3},{"x":1,"y":3},{"x":0,"y":3},{"x":0,"y":2},{"x":0,"y":1},{"x":1,"y":1},{"x":2,"y":1},
-				]
-			},
-			{
-				'name': 'Asim1',
-				'hunger': 105,
-				'id': '2',
-				'isAlive': True,
-				'pos': {
-					'x': 9,
-					'y': 9,
-				},
-				'body': [
-					{'x': 9, 'y': 9},
-					{'x': 9, 'y': 9},
-					# {"x":0,"y":6},{"x":0,"y":5},{"x":0,"y":4},{"x":1,"y":4},{"x":1,"y":5},{"x":1,"y":6},{"x":2,"y":6},{"x":3,"y":6},{"x":4,"y":6},{"x":5,"y":6},{"x":5,"y":6},{"x":6,"y":6},{"x":6,"y":5},{"x":5,"y":5},{"x":4,"y":5},{"x":3,"y":5},{"x":2,"y":5},{"x":2,"y":4},{"x":3,"y":4},{"x":3,"y":3},{"x":2,"y":3},{"x":1,"y":3},{"x":0,"y":3},{"x":0,"y":2},{"x":0,"y":1},{"x":1,"y":1},{"x":2,"y":1},
-				]
-			},
-						{
-				'name': 'Asim111',
-				'hunger': 105,
-				'id': '2',
-				'isAlive': True,
-				'pos': {
-					'x': 6,
-					'y': 6,
-				},
-				'body': [
-					{'x': 6, 'y': 6},
-					{'x': 6, 'y': 6},
-					# {"x":0,"y":6},{"x":0,"y":5},{"x":0,"y":4},{"x":1,"y":4},{"x":1,"y":5},{"x":1,"y":6},{"x":2,"y":6},{"x":3,"y":6},{"x":4,"y":6},{"x":5,"y":6},{"x":5,"y":6},{"x":6,"y":6},{"x":6,"y":5},{"x":5,"y":5},{"x":4,"y":5},{"x":3,"y":5},{"x":2,"y":5},{"x":2,"y":4},{"x":3,"y":4},{"x":3,"y":3},{"x":2,"y":3},{"x":1,"y":3},{"x":0,"y":3},{"x":0,"y":2},{"x":0,"y":1},{"x":1,"y":1},{"x":2,"y":1},
-				]
-			},
-						{
-				'name': 'Asim12',
-				'hunger': 105,
-				'id': '2',
-				'isAlive': True,
-				'pos': {
-					'x': 7,
-					'y': 7,
-				},
-				'body': [
-					{'x': 7, 'y': 7},
-					{'x': 7, 'y': 7},
-					# {"x":0,"y":6},{"x":0,"y":5},{"x":0,"y":4},{"x":1,"y":4},{"x":1,"y":5},{"x":1,"y":6},{"x":2,"y":6},{"x":3,"y":6},{"x":4,"y":6},{"x":5,"y":6},{"x":5,"y":6},{"x":6,"y":6},{"x":6,"y":5},{"x":5,"y":5},{"x":4,"y":5},{"x":3,"y":5},{"x":2,"y":5},{"x":2,"y":4},{"x":3,"y":4},{"x":3,"y":3},{"x":2,"y":3},{"x":1,"y":3},{"x":0,"y":3},{"x":0,"y":2},{"x":0,"y":1},{"x":1,"y":1},{"x":2,"y":1},
-				]
-			},
-		]
+		'snakes': snakes
 	}
 
+def get_snake_start(i, width, height):
+	if (i == 0): return { 'x': 3, 'y': 3 }
+	elif (i == 1): return { 'x': width - 4, 'y': 3 }
+	elif (i == 2): return { 'x': 3, 'y': height - 4 }
+	return { 'x': width - 4, 'y': height - 4 }
 
 def game_loop(state, session):
 	if state == []: return
@@ -111,7 +69,7 @@ def get_player_velocity(player, session):
 	if 'x' in session.keys() and 'y' in session.keys():
 		vel = {'x': session['x'], 'y':session['y']}
 	else:
-		vel = {'x': 1, 'y':0}
+		vel = {'x': 0, 'y':1}
 
 	return vel
 
