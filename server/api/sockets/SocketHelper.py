@@ -7,32 +7,30 @@ def create_game_state(width, height):
 	return {
 		'width': width,
 		'height': height,
-		'spawn_rate': 2,
+		'spawn_rate': 4,
 		'turns_till_food': 50,
 		'turns_since_food': 0,
 		'food': [
-			{'x': 3, 'y': 3},
-			{'x': 4, 'y': 4},
 		],
 		'snakes': [
-			# {
-			# 	'name': 'Asim',
-			# 	'hunger': 105,
-			# 	'id': 'player',
-			# 	'isAlive': True,
-			# 	'pos': {
-			# 		'x': 0,
-			# 		'y': 1,
-			# 	},
-			# 	'body': [
-			# 		{'x': 0, 'y': 0},
-			# 		{'x': 0, 'y': 1},
-			# 	]
-			# },
+			{
+				'name': 'Asim',
+				'hunger': 105,
+				'id': '1',
+				'isAlive': True,
+				'pos': {
+					'x': 0,
+					'y': 1,
+				},
+				'body': [
+					{'x': 0, 'y': 0},
+					{'x': 0, 'y': 1},
+				]
+			},
 			{
 				'name': 'Christina',
 				'hunger': 105,
-				'id': '1',
+				'id': '2',
 				'isAlive': True,
 				'pos': {
 					'x': 5,
@@ -41,34 +39,6 @@ def create_game_state(width, height):
 				'body': [
 					{'x': 5, 'y': 5},
 					{'x': 5, 'y': 6},
-				]
-			},
-						{
-				'name': 'Asim',
-				'hunger': 105,
-				'id': '1',
-				'isAlive': True,
-				'pos': {
-					'x': 7,
-					'y': 7,
-				},
-				'body': [
-					{'x': 7, 'y': 7},
-					{'x': 7, 'y': 7},
-				]
-			},
-						{
-				'name': 'Toby',
-				'hunger': 105,
-				'id': '1',
-				'isAlive': True,
-				'pos': {
-					'x': 0,
-					'y': 0,
-				},
-				'body': [
-					{'x': 0, 'y':0},
-					{'x': 0, 'y': 0},
 				]
 			},
 		]
@@ -131,6 +101,8 @@ def get_ai_velocity(state, snake, session, sid):
 		pos = AlgorithmsHelper.bad_snake()
 	elif sid == '1':
 		pos = AlgorithmsHelper.random_snake(state, snake)
+	elif sid == '2':
+		pos = AlgorithmsHelper.hungry_snake(state, snake)
 	return Directions.GetVelocityFromString(pos)
 	
 def update_snake_states(state, session):

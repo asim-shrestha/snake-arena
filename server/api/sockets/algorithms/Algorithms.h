@@ -74,10 +74,11 @@ extern char* BadSnake();
 extern char* RandomSnake(GoString p0, GoString p1, GoString p2);
 
 // Snake that moves directly to the nearest food
+// Leverages smart snake algorithm by abusing nearest food heuristic
 
 extern char* HungrySnake(GoString p0, GoString p1, GoString p2);
 
-extern char* SmartSnake(GoString p0, GoString p1, GoString p2);
+extern char* SmartSnake(GoString p0, GoString p1, GoString p2, GoString p3);
 
 #ifdef __cplusplus
 }
