@@ -15,22 +15,22 @@ def create_game_state(width, height):
 			{'x': 4, 'y': 4},
 		],
 		'snakes': [
+			# {
+			# 	'name': 'Asim',
+			# 	'hunger': 105,
+			# 	'id': 'player',
+			# 	'isAlive': True,
+			# 	'pos': {
+			# 		'x': 0,
+			# 		'y': 1,
+			# 	},
+			# 	'body': [
+			# 		{'x': 0, 'y': 0},
+			# 		{'x': 0, 'y': 1},
+			# 	]
+			# },
 			{
-				'name': 'Asim',
-				'hunger': 105,
-				'id': 'player',
-				'isAlive': True,
-				'pos': {
-					'x': 0,
-					'y': 1,
-				},
-				'body': [
-					{'x': 0, 'y': 0},
-					{'x': 0, 'y': 1},
-				]
-			},
-			{
-				'name': 'Bad',
+				'name': 'Christina',
 				'hunger': 105,
 				'id': '1',
 				'isAlive': True,
@@ -41,6 +41,34 @@ def create_game_state(width, height):
 				'body': [
 					{'x': 5, 'y': 5},
 					{'x': 5, 'y': 6},
+				]
+			},
+						{
+				'name': 'Asim',
+				'hunger': 105,
+				'id': '1',
+				'isAlive': True,
+				'pos': {
+					'x': 7,
+					'y': 7,
+				},
+				'body': [
+					{'x': 7, 'y': 7},
+					{'x': 7, 'y': 7},
+				]
+			},
+						{
+				'name': 'Toby',
+				'hunger': 105,
+				'id': '1',
+				'isAlive': True,
+				'pos': {
+					'x': 0,
+					'y': 0,
+				},
+				'body': [
+					{'x': 0, 'y':0},
+					{'x': 0, 'y': 0},
 				]
 			},
 		]
@@ -110,7 +138,7 @@ def update_snake_states(state, session):
 		if snake['isAlive'] == False:
 			continue
 
-		snake['hunger'] -= 2
+		snake['hunger'] -= 1
 		if is_snake_eating(state, snake):
 			# Add one more tail positon
 			snake['body'].append(snake['body'][-1])
@@ -119,6 +147,7 @@ def update_snake_states(state, session):
 		if snake['hunger'] <= 0:
 			logging.error("Snake died of hunger")
 			snake['isAlive'] = False
+			snake['death'] = 'Died of hunger'
 			continue
 
 		# Snake still isAlive
@@ -127,21 +156,25 @@ def update_snake_states(state, session):
 		if is_snake_out_of_bounds(state, snake):
 			logging.error("Snake out of bounds")
 			snake['isAlive'] = False
+			snake['death'] = 'Went out of bounds'
 			continue
 
 		if is_snake_collided_self(state, snake):
 			logging.error("Snake collided with itself")
 			snake['isAlive'] = False
+			snake['death'] = 'Collided with itself'
 			continue
 
 		if is_snake_collided_head(state, snake):
 			logging.error("Head to head collision")
 			snake['isAlive'] = False
+			snake['death'] = 'Head to head collision'
 			continue
 
 		if is_snake_collided_other(state, snake):
 			logging.error("Snake collided with another snake")
 			snake['isAlive'] = False
+			snake['death'] = 'Collided with another snake'
 			continue
 		
 

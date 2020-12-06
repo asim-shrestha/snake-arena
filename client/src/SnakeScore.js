@@ -15,13 +15,17 @@ const SnakeScore = ({snake}) => {
 		variant = 'danger'
 	}
 
-	// Cap hunger to 100
+	// Cap hunger from 0 - 100
 	if (hunger && hunger > 100) { hunger = 100; }
 	if (hunger && hunger < 0) { hunger = 0; }
 
+	// Remove bottom name margin if snake is dead to give room for death text
+	const nameClass = snake.death ? "mb-0" : "";
+
 	return (
 		<>
-			<h4>{name} ({Math.round(hunger) + "/100"}) {medallion}</h4>
+			<h4 className={nameClass}>{name} ({Math.round(hunger) + "/100"}) {medallion}</h4>
+			{snake.death ? <h6>{snake.death}</h6> : ""}
 			<ProgressBar variant={variant} animated now={hunger} />
 		</>
 	)

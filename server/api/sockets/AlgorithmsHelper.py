@@ -58,8 +58,12 @@ def get_state_matrix(state, currSnake):
 	return matrix
 
 def set_values_at_pos_list(matrix, posList, value):
+	h = len(matrix)
+	w = len(matrix[0])
 	for pos in posList:
-			matrix[pos['x']][pos['y']] = value
+		if pos['x'] < 0 or pos['x'] >= w: continue
+		elif pos['y'] < 0 or pos['y'] >= h: continue
+		matrix[pos['x']][pos['y']] = value
 
 def stringify_matrix(matrix):
 	res = ""

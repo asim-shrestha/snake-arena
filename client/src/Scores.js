@@ -30,7 +30,10 @@ console.log(snakes)
 					<SnakeScore id={i} snake={snake}/>
 				)
 			}
-	
+			{
+				// Display message if no snakes
+				snakes.length == 0 ? <h4 className="text-secondary">Press add snake below!</h4> : ""
+			}
 			<GroundedDiv>Add Snake</GroundedDiv>
 		</ScoreBoard>
 	)
