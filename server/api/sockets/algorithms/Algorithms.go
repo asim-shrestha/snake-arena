@@ -141,7 +141,7 @@ func BFS(mat [][]int, startPos Position, state State, searchVal, maxDepth int) B
 		// Test if we found the closes food position
 		if res.foodDepth == maxDepth {
 
-			if matrix[pos.x][pos.y] == 3 {
+			if matrix[pos.y][pos.x] == 3 {
 				fmt.Printf("Checking val: x:%v, y:%v : %v\n", pos.x, pos.y, matrix[pos.y][pos.x])
 				res.foodDepth = int(math.Abs(float64(pos.x) - float64(startPos.x)))
 				res.foodDepth += int(math.Abs(float64(pos.y) - float64(startPos.y)))
@@ -151,7 +151,7 @@ func BFS(mat [][]int, startPos Position, state State, searchVal, maxDepth int) B
 		// TODO Test if we found a enemy head
 
 		// Mark as visited
-		matrix[pos.x][pos.y] = 1
+		matrix[pos.y][pos.x] = 1
 
 		// Add next elements to queue
 		addValidPositionsToQueue(queue, matrix, pos, state, node.depth + 1)
@@ -178,7 +178,7 @@ func addValidPositionsToQueue(queue *list.List, matrix [][]int, pos Position, st
 	validPositions := GetValidPositions(pos, state)
 	for _, pos := range validPositions {
 		// Don't look at the same value
-		if matrix[pos.x][pos.y] == 1 { continue }
+		if matrix[pos.y][pos.x] == 1 { continue }
 		(*queue).PushBack(BFSNode{pos, depth})
 	}
 }
@@ -217,7 +217,7 @@ func isPositionInBounds(pos Position, state State) bool {
 
 // What values in board matrix mean: 0 == nothing, 1 == current snake, 2 == enemy snake, 3 == food
 func isPositionSafe(pos Position, state State) bool {
-	boardVal := state.board[pos.x][pos.y]
+	boardVal := state.board[pos.y][pos.x]
 	return boardVal == 0 || boardVal == 3
 }
 
@@ -282,7 +282,7 @@ func DecodeStateStr(stateStr string) ([][]int, int, int) {
 			board[i][j] = strToInt(col)
 		}
 	}
-
+	fmt.Println(board)
 	return board, width, height
 }
 

@@ -113,7 +113,6 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 					<Form.Control type="text" size="lg" placeholder="Snake name" value={name} onChange={e => setName(e.target.value)} />
 					<br />
 					<Form.Control as="select" size="lg" value={type} onChange={e => setType(e.target.value)}>
-						<option value="0">Bad snake</option>
 						<option value="1">Random snake</option>
 						<option value="2">Hungry snake</option>
 						<option value="3">Smart snake</option>

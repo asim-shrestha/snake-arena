@@ -33,10 +33,12 @@ socket.on('connect', () => console.log("COONECTED BOYE"))
 
 const GamePage = () => {
 	const [gameState, setGameState] = useState({
-		width: 10,
+		fps: 10,
+		width: 8,
 		height: 10,
 		snakes: []
 	});
+	console.log(gameState)
 	const [showAddSnakeModal, setShowAddSnakeModal] = useState(false);
 	const [showPlayErrorModal, setShowPlayErrorModal] = useState(false);
 
@@ -86,8 +88,10 @@ const GamePage = () => {
 					</BlockButtonGroup>
 				</ShadedDiv>
 			</CenteredDiv>
-			<Configuration/>
-
+			<Configuration
+				gameState={gameState}
+				setGameState={setGameState}
+			/>
 			<AddSnakeModal
 				show={showAddSnakeModal}
 				setShow={setShowAddSnakeModal}

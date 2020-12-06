@@ -67,7 +67,7 @@ def set_values_at_pos_list(matrix, posList, value):
 	for pos in posList:
 		if pos['x'] < 0 or pos['x'] >= w: continue
 		elif pos['y'] < 0 or pos['y'] >= h: continue
-		matrix[pos['x']][pos['y']] = value
+		matrix[pos['y']][pos['x']] = value
 
 def stringify_matrix(matrix):
 	res = ""

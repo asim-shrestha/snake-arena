@@ -8,17 +8,13 @@ const CustomSlider = styled.input`
 	width: 100%;
 `
 
-const Slider = ({text, min, max, onChange}) => {
-	const [value, setValue] = useState(50)
-	// handleOnChange = (e) = {
-	// 	output.innerHTML = this.value;
-	// }
+const Slider = ({text, min, max, value, onChange}) => {
 
 	return (
 		<div>
 			<div className="d-inline-flex w-100">
 					<h3 className=" text-nowrap">{"•" + text}</h3>
-					<CustomSlider type="range" min={min} max={max} value={value} onChange={e => setValue(e.target.value)}/>
+					<CustomSlider type="range" min={min} max={max} value={value} onChange={onChange}/>
 			</div>
 		</div>
 	)
