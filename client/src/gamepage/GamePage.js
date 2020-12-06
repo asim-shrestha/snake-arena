@@ -1,11 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import Grid from './Grid';
-import styled from 'styled-components';
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import socketIOClient  from "socket.io-client";
-import ShadedDiv from './ShadedDiv'
+import React, {useState, useEffect} from 'react'
+import Grid from './Grid'
+import styled from 'styled-components'
+import Button from 'react-bootstrap/Button'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import socketIOClient  from "socket.io-client"
+import ShadedDiv from '../ShadedDiv'
 import Configuration from './Configuration'
+import AddSnakeModal from './AddSnakeModal'
 
 const CenteredDiv = styled.div`
 	display: flex;
@@ -34,6 +35,7 @@ const GamePage = () => {
 		height: 10,
 		snakes: []
 	});
+	const [showAddSnakeModal, setShowAddSnakeModal] = useState(false);
 
 	useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
@@ -54,9 +56,8 @@ const GamePage = () => {
 	}
 
 	const handleKeyDown = (e) => {
-		e.preventDefault();
-		console.log(e.keyCode);
 		if(e.keyCode >= 37 && e.keyCode <= 40) {
+			e.preventDefault();
 			socket.emit('keydown', e.keyCode);
 		}
 	}
@@ -64,8 +65,9 @@ const GamePage = () => {
 	return (
 		<div style={{ display: "block" }}>
 			<CenteredDiv>
-				<Grid nRows={5} nCols={5} gameState={gameState}/>
+				<Grid nRows={5} nCols={5} gameState={gameState} setGameState={setGameState} handleAddSnake={() => setShowAddSnakeModal(true)}/>
 			</CenteredDiv>
+
 			<CenteredDiv>
 				<ShadedDiv>
 					<BlockButtonGroup size="lg">
@@ -75,6 +77,13 @@ const GamePage = () => {
 				</ShadedDiv>
 			</CenteredDiv>
 			<Configuration/>
+
+			<AddSnakeModal
+				show={showAddSnakeModal}
+				setShow={setShowAddSnakeModal}
+				gameState={gameState}
+				setGameState={setGameState}
+			/>
 		</div>
 	);
 };

@@ -7,8 +7,8 @@ def create_game_state(width, height):
 	return {
 		'width': width,
 		'height': height,
-		'spawn_rate': 4,
-		'turns_till_food': 50,
+		'spawn_rate': 5,
+		'turns_till_food': 25,
 		'turns_since_food': 0,
 		'food': [
 		],
@@ -16,29 +16,61 @@ def create_game_state(width, height):
 			{
 				'name': 'Asim',
 				'hunger': 105,
-				'id': '1',
+				'id': '2',
 				'isAlive': True,
 				'pos': {
-					'x': 0,
+					'x': 2,
 					'y': 1,
 				},
 				'body': [
-					{'x': 0, 'y': 0},
-					{'x': 0, 'y': 1},
+					{'x': 2, 'y': 1},
+					{'x': 2, 'y': 1},
+					# {"x":0,"y":6},{"x":0,"y":5},{"x":0,"y":4},{"x":1,"y":4},{"x":1,"y":5},{"x":1,"y":6},{"x":2,"y":6},{"x":3,"y":6},{"x":4,"y":6},{"x":5,"y":6},{"x":5,"y":6},{"x":6,"y":6},{"x":6,"y":5},{"x":5,"y":5},{"x":4,"y":5},{"x":3,"y":5},{"x":2,"y":5},{"x":2,"y":4},{"x":3,"y":4},{"x":3,"y":3},{"x":2,"y":3},{"x":1,"y":3},{"x":0,"y":3},{"x":0,"y":2},{"x":0,"y":1},{"x":1,"y":1},{"x":2,"y":1},
 				]
 			},
 			{
-				'name': 'Christina',
+				'name': 'Asim1',
 				'hunger': 105,
 				'id': '2',
 				'isAlive': True,
 				'pos': {
-					'x': 5,
+					'x': 9,
+					'y': 9,
+				},
+				'body': [
+					{'x': 9, 'y': 9},
+					{'x': 9, 'y': 9},
+					# {"x":0,"y":6},{"x":0,"y":5},{"x":0,"y":4},{"x":1,"y":4},{"x":1,"y":5},{"x":1,"y":6},{"x":2,"y":6},{"x":3,"y":6},{"x":4,"y":6},{"x":5,"y":6},{"x":5,"y":6},{"x":6,"y":6},{"x":6,"y":5},{"x":5,"y":5},{"x":4,"y":5},{"x":3,"y":5},{"x":2,"y":5},{"x":2,"y":4},{"x":3,"y":4},{"x":3,"y":3},{"x":2,"y":3},{"x":1,"y":3},{"x":0,"y":3},{"x":0,"y":2},{"x":0,"y":1},{"x":1,"y":1},{"x":2,"y":1},
+				]
+			},
+						{
+				'name': 'Asim111',
+				'hunger': 105,
+				'id': '2',
+				'isAlive': True,
+				'pos': {
+					'x': 6,
 					'y': 6,
 				},
 				'body': [
-					{'x': 5, 'y': 5},
-					{'x': 5, 'y': 6},
+					{'x': 6, 'y': 6},
+					{'x': 6, 'y': 6},
+					# {"x":0,"y":6},{"x":0,"y":5},{"x":0,"y":4},{"x":1,"y":4},{"x":1,"y":5},{"x":1,"y":6},{"x":2,"y":6},{"x":3,"y":6},{"x":4,"y":6},{"x":5,"y":6},{"x":5,"y":6},{"x":6,"y":6},{"x":6,"y":5},{"x":5,"y":5},{"x":4,"y":5},{"x":3,"y":5},{"x":2,"y":5},{"x":2,"y":4},{"x":3,"y":4},{"x":3,"y":3},{"x":2,"y":3},{"x":1,"y":3},{"x":0,"y":3},{"x":0,"y":2},{"x":0,"y":1},{"x":1,"y":1},{"x":2,"y":1},
+				]
+			},
+						{
+				'name': 'Asim12',
+				'hunger': 105,
+				'id': '2',
+				'isAlive': True,
+				'pos': {
+					'x': 7,
+					'y': 7,
+				},
+				'body': [
+					{'x': 7, 'y': 7},
+					{'x': 7, 'y': 7},
+					# {"x":0,"y":6},{"x":0,"y":5},{"x":0,"y":4},{"x":1,"y":4},{"x":1,"y":5},{"x":1,"y":6},{"x":2,"y":6},{"x":3,"y":6},{"x":4,"y":6},{"x":5,"y":6},{"x":5,"y":6},{"x":6,"y":6},{"x":6,"y":5},{"x":5,"y":5},{"x":4,"y":5},{"x":3,"y":5},{"x":2,"y":5},{"x":2,"y":4},{"x":3,"y":4},{"x":3,"y":3},{"x":2,"y":3},{"x":1,"y":3},{"x":0,"y":3},{"x":0,"y":2},{"x":0,"y":1},{"x":1,"y":1},{"x":2,"y":1},
 				]
 			},
 		]
@@ -68,6 +100,9 @@ def update_position(state, snake, session):
 	else:
 		vel = get_ai_velocity(state, snake, session, sid)
 
+	# Ensure snake does not walk into self
+	vel = update_velocity_if_running_into_self(vel, snake)
+
 	# Update position based on velocity
 	snake['pos']['x'] += vel['x']
 	snake['pos']['y'] += vel['y']
@@ -78,22 +113,7 @@ def get_player_velocity(player, session):
 	else:
 		vel = {'x': 1, 'y':0}
 
-	vel = update_velocity_if_running_into_self(vel, player)
 	return vel
-
-def update_velocity_if_running_into_self(vel, player):
-	# Get current velocity of snake
-	tail = player['body'][-1]
-	beforeTail = player['body'][-2]
-	prevVel = {'x': tail['x'] - beforeTail['x'], 'y': tail['y'] - beforeTail['y']}
-
-	# If running into self, just use the previous vel
-	if vel['x']*-1 == prevVel['x'] and vel['y']*-1 == prevVel['y']:
-		return prevVel
-
-	# Not running into self, use new vel
-	return vel
-
 
 def get_ai_velocity(state, snake, session, sid):
 	pos = 'left' # Default value
@@ -105,6 +125,19 @@ def get_ai_velocity(state, snake, session, sid):
 		pos = AlgorithmsHelper.hungry_snake(state, snake)
 	return Directions.GetVelocityFromString(pos)
 	
+def update_velocity_if_running_into_self(vel, snake):
+	# Get current velocity of snake
+	tail = snake['body'][-1]
+	beforeTail = snake['body'][-2]
+	prevVel = {'x': tail['x'] - beforeTail['x'], 'y': tail['y'] - beforeTail['y']}
+
+	# If running into self, just use the previous vel
+	if vel['x']*-1 == prevVel['x'] and vel['y']*-1 == prevVel['y']:
+		return prevVel
+
+	# Not running into self, use new vel
+	return vel
+
 def update_snake_states(state, session):
 	for snake in state['snakes']:
 		if snake['isAlive'] == False:

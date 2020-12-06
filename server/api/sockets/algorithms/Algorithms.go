@@ -112,7 +112,7 @@ func GetDirectionFromHeuristics(positions []Position, state State, heuristics He
 }
 
 func getPositionWeight(pos Position, state State, heuristics Heuristics) int {
-	MaxDepth := 12
+	MaxDepth := 15
 	res := BFS(state.board, pos, state, 3, MaxDepth)
 	foodWeight := (MaxDepth - res.foodDepth) * heuristics.foodWeight // Closer the food, the more it weighs
 	emptySpaceWeight := res.emptySpaceDepth * heuristics.emptySpaceWeight // More open space, the more it weighs
@@ -128,7 +128,6 @@ func BFS(mat [][]int, startPos Position, state State, searchVal, maxDepth int) B
 	queue := list.New()
 	queue.PushBack(BFSNode{startPos, 1})
 	matrix := duplicateMatrix(mat)
-
 	for queue.Len() > 0 {
 		// Get next element
 		curr := queue.Front()
@@ -149,16 +148,18 @@ func BFS(mat [][]int, startPos Position, state State, searchVal, maxDepth int) B
 			}
 		}
 
-		// Test if we found a enemy head
+		// TODO Test if we found a enemy head
 
 		// Mark as visited
-		matrix[pos.y][pos.x] = 1
+		matrix[pos.x][pos.y] = 1
 
 		// Add next elements to queue
 		addValidPositionsToQueue(queue, matrix, pos, state, node.depth + 1)
 
 		// Update max depth
-		res.emptySpaceDepth = node.depth + 1
+		if node.depth + 1 > res.emptySpaceDepth {
+			res.emptySpaceDepth = node.depth + 1
+		}
 	}
 
 	return res
@@ -177,7 +178,7 @@ func addValidPositionsToQueue(queue *list.List, matrix [][]int, pos Position, st
 	validPositions := GetValidPositions(pos, state)
 	for _, pos := range validPositions {
 		// Don't look at the same value
-		if matrix[pos.y][pos.x] == 1 { continue }
+		if matrix[pos.x][pos.y] == 1 { continue }
 		(*queue).PushBack(BFSNode{pos, depth})
 	}
 }

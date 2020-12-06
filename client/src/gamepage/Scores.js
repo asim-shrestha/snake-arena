@@ -11,13 +11,13 @@ const ScoreBoard = styled.div`
 	min-width: 15em;
 `
 
-const GroundedDiv = styled(Button)`
+const GroundedButton = styled(Button)`
 	position: absolute;
 	bottom: 0;
 	width: 95%;
 `
 
-const Scores = ({snakes}) => {
+const Scores = ({snakes, handleAddSnake}) => {
 	if (snakes == null) {
 		snakes = [];
 	}
@@ -27,14 +27,14 @@ console.log(snakes)
 			<h2>Snakes:</h2>
 			{
 				snakes.map((snake, i) => 
-					<SnakeScore id={i} snake={snake}/>
+					<SnakeScore id={i + String(snake.name)} snake={snake}/>
 				)
 			}
 			{
 				// Display message if no snakes
-				snakes.length == 0 ? <h4 className="text-secondary">Add snakes to start!</h4> : ""
+				snakes.length === 0 ? <h4 className="text-secondary">Add snakes to start!</h4> : ""
 			}
-			<GroundedDiv>Add Snake</GroundedDiv>
+			<GroundedButton onClick={handleAddSnake}>Add Snake</GroundedButton>
 		</ScoreBoard>
 	)
 }

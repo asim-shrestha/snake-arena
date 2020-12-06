@@ -1,7 +1,7 @@
 import React from 'react'
 import Tile from './Tile'
 import styled from 'styled-components'
-import ShadedDiv from './ShadedDiv'
+import ShadedDiv from '../ShadedDiv'
 import Scores from './Scores';
 
 const GridBorder = styled(ShadedDiv)`
@@ -63,11 +63,11 @@ const getDirection = (body, coord) => {
 
 const isHead = (body, coord) => {
 	const tail = body[body.length - 1]
-	return (tail.x == coord.x && tail.y == coord.y)
+	return (tail.x === coord.x && tail.y === coord.y)
 }
 
 
-const Grid = ({nRows, nCols, gameState}) => {
+const Grid = ({nRows, nCols, gameState, setGameState, handleAddSnake}) => {
 	nCols = gameState.width;
 	nRows = gameState.height;
 
@@ -88,7 +88,12 @@ const Grid = ({nRows, nCols, gameState}) => {
 					{rows}
 				</tbody>
 			</table>
-			<Scores snakes={gameState.snakes}/>
+			<Scores
+				snakes={gameState.snakes}
+				gameState={gameState}
+				setGameState={setGameState}
+				handleAddSnake={handleAddSnake}
+			/>
 		</GridBorder>
 	)
 }

@@ -10,7 +10,7 @@ const SnakeScore = ({snake}) => {
 	if (isWinner) {
 		medallion = '👑';
 		variant = 'warning' // Gold
-	} else if (isAlive != undefined && !isAlive) {
+	} else if (isAlive != null && !isAlive) {
 		medallion = '💀';
 		variant = 'danger'
 	}
