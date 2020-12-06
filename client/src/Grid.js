@@ -9,30 +9,63 @@ const GridBorder = styled(ShadedDiv)`
 	padding: 2em;
 	display: inline-flex;
 `
-const getTileColor = (i, j, gameState) => {
-	const color = null
+const getTileType = (i, j, gameState) => {
 	// Test for food
 	if(gameState.food) {
 		for (const coord of gameState.food) {
 			const {x, y} = coord;
 			if(x === j && y === i) {
-				return 'orange';
+				return {val: 'food'};
 			}
 		}
 	}
 
-	// Test for player
+	let res = null
+	// Test for snakes
+	// If we only find a dead snake, we keep searching for a live one
+	// This is so live snakes draw on top of dead ones
 	for (const snake of gameState.snakes) {
 		for (const coord of snake.body) {
 			const {x, y} = coord;
 			if(x === j && y === i) {
-				return snake.isAlive ? '#38a1f2' : '#b2d2eb';
+				if (snake.isAlive) {
+					return getSnakeTypeParams(snake, coord)
+				} else {
+					res = getSnakeTypeParams(snake, coord)
+				}
 			}
 		}
 	}
 	
-	return color
+	return res
 }
+
+const getSnakeTypeParams = (snake, coord) => {
+	return {
+		val: 'snake',
+		isAlive: snake.isAlive,
+		dir: getDirection(snake.body, coord),
+	}
+}
+
+const getDirection = (body, coord) => {
+	if (!isHead(body, coord)) { return null; }
+	const tail = body[body.length - 1]
+	const beforeTail = body[body.length - 2]
+	const vel = {x: tail.x - beforeTail.x, y: tail.y - beforeTail.y}
+
+	// Get direction based on velocity
+	if (vel.x === -1 && vel.y ===  0) { return 'left'; }
+	else if (vel.x ===  0 && vel.y === -1) { return 'up'; }
+	else if (vel.x ===  1 && vel.y ===  0) { return 'right'; }
+	return 'down';
+}
+
+const isHead = (body, coord) => {
+	const tail = body[body.length - 1]
+	return (tail.x == coord.x && tail.y == coord.y)
+}
+
 
 const Grid = ({nRows, nCols, gameState}) => {
 	nCols = gameState.width;
@@ -43,7 +76,7 @@ const Grid = ({nRows, nCols, gameState}) => {
 	for(let i = 0; i < nRows; i++) {
 		rows.push(
 			<tr key={`${i}`}>
-				{[...Array(nCols)].map((_, j) => <Tile key={`${i}, ${j}`} color={getTileColor(i, j, gameState)}/>)}
+				{[...Array(nCols)].map((_, j) => <Tile key={`${i}, ${j}`} type={getTileType(i, j, gameState)}/>)}
 			</tr>
 		);
 	}

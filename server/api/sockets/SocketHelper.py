@@ -145,7 +145,6 @@ def update_snake_states(state, session):
 			snake['hunger'] = 100
 		
 		if snake['hunger'] <= 0:
-			logging.error("Snake died of hunger")
 			snake['isAlive'] = False
 			snake['death'] = 'Died of hunger'
 			continue
@@ -154,25 +153,21 @@ def update_snake_states(state, session):
 		move_snake(state, snake)
 
 		if is_snake_out_of_bounds(state, snake):
-			logging.error("Snake out of bounds")
 			snake['isAlive'] = False
 			snake['death'] = 'Went out of bounds'
 			continue
 
 		if is_snake_collided_self(state, snake):
-			logging.error("Snake collided with itself")
 			snake['isAlive'] = False
 			snake['death'] = 'Collided with itself'
 			continue
 
 		if is_snake_collided_head(state, snake):
-			logging.error("Head to head collision")
 			snake['isAlive'] = False
-			snake['death'] = 'Head to head collision'
+			snake['death'] = 'Lost head to head collision'
 			continue
 
 		if is_snake_collided_other(state, snake):
-			logging.error("Snake collided with another snake")
 			snake['isAlive'] = False
 			snake['death'] = 'Collided with another snake'
 			continue
