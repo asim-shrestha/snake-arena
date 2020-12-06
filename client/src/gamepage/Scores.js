@@ -21,7 +21,7 @@ const Scores = ({snakes, handleAddSnake}) => {
 	if (snakes == null) {
 		snakes = [];
 	}
-console.log(snakes)
+
 	return (
 		<ScoreBoard>
 			<h2>Snakes:</h2>
