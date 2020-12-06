@@ -50,6 +50,7 @@ def get_state_matrix(state, currSnake):
 	
 	# Encode snakes
 	for snake in state['snakes']:
+		if not snake['isAlive']: continue # Skip dead snakes
 		set_values_at_pos_list(matrix, snake['body'], 2)
 
 	# Encode food

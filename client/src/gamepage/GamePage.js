@@ -7,6 +7,7 @@ import socketIOClient  from "socket.io-client"
 import ShadedDiv from '../ShadedDiv'
 import Configuration from './Configuration'
 import AddSnakeModal from './AddSnakeModal'
+import PlayErrorModal from '../PlayErrorModal'
 
 const CenteredDiv = styled.div`
 	display: flex;
@@ -36,6 +37,7 @@ const GamePage = () => {
 		snakes: []
 	});
 	const [showAddSnakeModal, setShowAddSnakeModal] = useState(false);
+	const [showPlayErrorModal, setShowPlayErrorModal] = useState(false);
 
 	useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
@@ -46,6 +48,13 @@ const GamePage = () => {
 	}, []);
 	
 	const handlePlay = () => {
+		// Don't play if too few snakes
+		if (gameState.snakes.length <= 0) {
+			setShowPlayErrorModal(true);
+			return;
+		}
+
+		// Start the game
 		socket.emit('start_game', {width: gameState.width, height: gameState.height});
 		socket.on('game_state', (data) => {
 			setGameState(data);
@@ -83,6 +92,10 @@ const GamePage = () => {
 				setShow={setShowAddSnakeModal}
 				gameState={gameState}
 				setGameState={setGameState}
+			/>
+			<PlayErrorModal
+				show={showPlayErrorModal}
+				setShow={setShowPlayErrorModal}
 			/>
 		</div>
 	);

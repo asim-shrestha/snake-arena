@@ -7,14 +7,20 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 	const [name, setName] = useState("");
 	const [type, setType] = useState("0");
 	const [alertText, setAlertText] = useState("");
+	const [addedSnakeName, setAddedSnakeName] = useState("");
 	console.log(`name: "${name}", "${type}"`);
+
+	const resetValues = () => {
+		setName("");
+		setType("0");
+		setAlertText("");
+		setAddedSnakeName("");
+	};
 
 	useEffect(() => {
 		// Reset values whenever show changes
-		setName("")
-		setType("0")
-		setAlertText("")
-	}, [show])
+		resetValues();
+	}, [show]);
 
 	const isSnakeNameAndTypeValid = () => {
 		for (let snake of gameState.snakes) {
@@ -33,7 +39,7 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 
 		// Valid
 		return true;
-	}
+	};
 
 	const isValidSnake = () => {
 		if (gameState.snakes.length >= 4) {
@@ -46,39 +52,42 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 		}
 
 		return true;
-	}
+	};
 
 	const getSnakePosition = () => {
-		if (gameState.snakes.length === 0) { return {x: 0, y: 0}}
-		else if (gameState.snakes.length === 1) { return {x: gameState.width - 1, y: 0}}
-		else if (gameState.snakes.length === 2) { return {x: 0, y: gameState.height - 1}}
-		return {x: gameState.width - 1, y: gameState.height - 1}
-	}
+		if (gameState.snakes.length === 0) { return { x: 0, y: 0 }; }
+		else if (gameState.snakes.length === 1) { return { x: gameState.width - 1, y: 0 }; }
+		else if (gameState.snakes.length === 2) { return { x: 0, y: gameState.height - 1 }; }
+		return { x: gameState.width - 1, y: gameState.height - 1 };
+	};
 
 	const addSnakeToGameState = () => {
 		const newSnakes = [...gameState.snakes];
 		newSnakes.push({
 			name: name,
 			id: type,
-			hunger:100,
-			body: [	getSnakePosition(), getSnakePosition() ]
-		})
-		
+			hunger: 100,
+			body: [getSnakePosition(), getSnakePosition()]
+		});
+
 		setGameState({
 			...gameState,
 			snakes: newSnakes,
-		})
-		setShow(false);
-	}
+		});
+	};
 
 	const handleAddSnake = () => {
+		setAddedSnakeName("");
 		if (!name || name === "") {
-			setAlertText("Please add a name!")
+			setAlertText("Please add a name!");
 			return;
 		}
 
 		if (isValidSnake()) {
-			addSnakeToGameState()
+			const snakeName = name;
+			addSnakeToGameState();
+			resetValues();
+			setAddedSnakeName(snakeName);
 		}
 	};
 
@@ -95,12 +104,11 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 			buttonData={addButtonData}
 		>
 			<Form>
-				{
-					alertText ? <Alert variant="warning">{alertText}</Alert> : ""
-				}
+				{ addedSnakeName ? <Alert variant="success">Snake "{addedSnakeName}" successfully added</Alert> : "" }
+				{ alertText ? <Alert variant="warning">{alertText}</Alert> : "" }
 
 				<Form.Group>
-					<Form.Control type="text" size="lg" placeholder="Snake name" value={name} onChange={e => setName(e.target.value)}/>
+					<Form.Control type="text" size="lg" placeholder="Snake name" value={name} onChange={e => setName(e.target.value)} />
 					<br />
 					<Form.Control as="select" size="lg" value={type} onChange={e => setType(e.target.value)}>
 						<option value="0">Bad snake</option>

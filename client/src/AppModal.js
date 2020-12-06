@@ -4,13 +4,14 @@ import Button from 'react-bootstrap/Button'
 
 const AppModal = ({show, setShow, title, buttonData, children}) => {
 	const closeModal = () => setShow(false);
+	
 	return (
 		<Modal
 			show={show}
 			size="lg"
 			aria-labelledby="contained-modal-title-vcenter"
 			centered
-			
+			onHide={closeModal}
 		>
 			<Modal.Header closeButton onClick={closeModal}>
 				<Modal.Title id="contained-modal-title-vcenter">
