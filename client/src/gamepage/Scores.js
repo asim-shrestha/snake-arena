@@ -17,17 +17,25 @@ const GroundedButton = styled(Button)`
 	width: 95%;
 `
 
-const Scores = ({snakes, handleAddSnake}) => {
+const Scores = ({snakes, handleAddSnake, gameState, setGameState}) => {
 	if (snakes == null) {
 		snakes = [];
 	}
 
+	const deleteSnakeAtIndex = (i) => {
+		snakes.splice(i, 1);
+		const newGameState = {
+			...gameState,
+			snakes: snakes,
+		};
+		setGameState(newGameState);
+	}
 	return (
 		<ScoreBoard>
 			<h2>Snakes:</h2>
 			{
 				snakes.map((snake, i) => 
-					<SnakeScore id={i + String(snake.name)} snake={snake}/>
+					<SnakeScore id={i + String(snake.name)} snake={snake} deleteSnake={() => deleteSnakeAtIndex(i)}/>
 				)
 			}
 			{

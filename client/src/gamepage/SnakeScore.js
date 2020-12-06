@@ -25,13 +25,18 @@ const SnakeScore = ({ snake, deleteSnake}) => {
 	if (hunger && hunger < 0) { hunger = 0; }
 
 	// Remove bottom name margin if snake is dead to give room for death text
-	const nameClass = snake.death ? "mb-0" : "";
+	const nameClass = snake.death ? "mb-0" : "mb-2";
 
 	return (
 		<>
-			<h4 className={nameClass + " d-inline"}>{name} ({Math.round(hunger) + "/100"}) {medallion}</h4>
+			<div className={nameClass + " mt-2"}>
+				<h4 className={"d-inline"}>{name} ({Math.round(hunger) + "/100"}) {medallion}</h4>
+				<Button className="float-right close" variant="light" size="sm" onClick={deleteSnake}>
+					<h4 className="mb-0">❌</h4>
+				</Button>
+			</div>
+
 			{snake.death ? <h6>{snake.death}</h6> : ""}
-			<Button className="float-right close" variant="light" size="sm"><h4 className="mb-0">❌</h4></Button>
 			<ProgressBar variant={variant} animated now={hunger} />
 		</>
 	);
