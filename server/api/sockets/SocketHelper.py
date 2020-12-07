@@ -22,7 +22,8 @@ def create_game_state(gameData):
 		'fps': gameData['fps'],
 		'width': gameData['width'],
 		'height': gameData['height'],
-		'spawn_rate': gameData['spawnRate'],
+		'spawnRate': gameData['spawnRate'],  #Frontend
+		'spawn_rate': gameData['spawnRate'], #Backend 
 		'turns_till_food': 25,
 		'turns_since_food': 0,
 		'food': [
