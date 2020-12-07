@@ -71,7 +71,7 @@ func RandomSnake(stateStr, currX, currY string) *C.char {
 // Snake that moves directly to the nearest food
 // Leverages smart snake algorithm by abusing nearest food heuristic
 func HungrySnake(stateStr, currX, currY string) *C.char {
-	heuristicsStr := "100,1,1"
+	heuristicsStr := "100,10,0"
 	return SmartSnake(stateStr, currX, currY, heuristicsStr)
 }
 

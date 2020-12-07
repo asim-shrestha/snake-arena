@@ -30,16 +30,17 @@ const BlockButtonGroup = styled(ButtonGroup)`
 const socket = socketIOClient('ws://localhost:5000/', { forceNew: true, 'multiplex': false });
 socket.on('connect', () => console.log("COONECTED BOYE"));
 
+const defaultGameState = {
+	fps: 10,
+	width: 10,
+	height: 10,
+	snakes: [],
+	spawnRate: 5,
+	isGameOver: true,
+}
 
 const GamePage = () => {
-	const [gameState, setGameState] = useState({
-		fps: 10,
-		width: 10,
-		height: 10,
-		snakes: [],
-		spawnRate: 5,
-		isGameOver: true,
-	});
+	const [gameState, setGameState] = useState({...defaultGameState});
 	const [showAddSnakeModal, setShowAddSnakeModal] = useState(false);
 	const [showPlayErrorModal, setShowPlayErrorModal] = useState(false);
 
@@ -69,6 +70,13 @@ const GamePage = () => {
 		});
 	};
 
+	const handleEndGame = () => {
+		// Check if we need to leave from the server
+		if (!gameState.isGameOver) {
+			socket.emit('reset');
+		}
+	}
+
 	const handleKeyDown = (e) => {
 		if (e.keyCode >= 37 && e.keyCode <= 40) {
 			e.preventDefault();
@@ -86,7 +94,7 @@ const GamePage = () => {
 				<ShadedDiv>
 					<BlockButtonGroup size="lg">
 						<Button disabled={!gameState.isGameOver} variant="light" onClick={handlePlay}>Play</Button>
-						<Button disabled={gameState.isGameOver} variant="dark">Reset</Button>
+						<Button disabled={gameState.isGameOver} variant="dark" onClick={handleEndGame}>End Game</Button>
 					</BlockButtonGroup>
 				</ShadedDiv>
 			</CenteredDiv>

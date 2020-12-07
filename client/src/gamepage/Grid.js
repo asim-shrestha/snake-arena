@@ -45,6 +45,7 @@ const getSnakeTypeParams = (snake, coord) => {
 		val: 'snake',
 		isAlive: snake.isAlive,
 		dir: getDirection(snake.body, coord),
+		isPlayer: snake.id === "player"
 	}
 }
 

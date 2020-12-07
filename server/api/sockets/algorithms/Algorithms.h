@@ -3,14 +3,16 @@
 /* package command-line-arguments */
 
 
-#line 1 "cgo-builtin-prolog"
+#line 1 "cgo-builtin-export-prolog"
 
 #include <stddef.h> /* for ptrdiff_t below */
 
 #ifndef GO_CGO_EXPORT_PROLOGUE_H
 #define GO_CGO_EXPORT_PROLOGUE_H
 
+#ifndef GO_CGO_GOSTRING_TYPEDEF
 typedef struct { const char *p; ptrdiff_t n; } _GoString_;
+#endif
 
 #endif
 
@@ -50,7 +52,9 @@ typedef double _Complex GoComplex128;
 */
 typedef char _check_for_64_bit_pointer_matching_GoInt[sizeof(void*)==64/8 ? 1:-1];
 
+#ifndef GO_CGO_GOSTRING_TYPEDEF
 typedef _GoString_ GoString;
+#endif
 typedef void *GoMap;
 typedef void *GoChan;
 typedef struct { void *t; void *v; } GoInterface;
@@ -66,22 +70,18 @@ extern "C" {
 
 
 // Snake that moves completely randomly
-
 extern char* BadSnake();
 
 // Snake that moves randomly but avoids obstacles
-
-extern char* RandomSnake(GoString p0, GoString p1, GoString p2);
+extern char* RandomSnake(GoString stateStr, GoString currX, GoString currY);
 
 // Snake that moves directly to the nearest food
 // Leverages smart snake algorithm by abusing nearest food heuristic
-
-extern char* HungrySnake(GoString p0, GoString p1, GoString p2);
+extern char* HungrySnake(GoString stateStr, GoString currX, GoString currY);
 
 // Uses heuristics to make decisions
 // Heuristics include how close food is, how much free space there is, and how close enemies are
-
-extern char* SmartSnake(GoString p0, GoString p1, GoString p2, GoString p3);
+extern char* SmartSnake(GoString stateStr, GoString currX, GoString currY, GoString heuristicsStr);
 
 #ifdef __cplusplus
 }

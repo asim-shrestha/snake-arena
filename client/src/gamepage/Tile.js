@@ -41,7 +41,11 @@ const Tile = ({type}) => {
 	else if (type.val === 'food') { color = "orange" }
 
 	else if (type.val === 'snake') {
-		color = type.isAlive ? "#38a1f2" : "#b2d2eb";
+		if (type.isPlayer) {
+			color = type.isAlive ? "firebrick" : "indianred";
+		} else {
+			color = type.isAlive ? "#38a1f2" : "#b2d2eb";
+		}
 		dir = type.dir;
 	}
 

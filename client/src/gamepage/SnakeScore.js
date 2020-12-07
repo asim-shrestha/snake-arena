@@ -3,9 +3,6 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button';
 import styled from 'styled-components';
 
-const Bar = styled(ProgressBar)`
-
-`;
 const SnakeScore = ({ snake, deleteDisabled, deleteSnake}) => {
 	let { name, hunger, isWinner, isAlive } = snake;
 	let medallion = '';
