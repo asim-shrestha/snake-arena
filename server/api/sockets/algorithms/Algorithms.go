@@ -91,24 +91,29 @@ func SmartSnake(stateStr, currX, currY, heuristicsStr string) *C.char {
 }
 
 func GetDirectionFromHeuristics(positions []Position, state State, heuristics Heuristics) *C.char {
-	maxPosition := positions[0]
-	values := []int{0, 0, 0, 0}
+	weights := []int{0, 0, 0, 0}
 	maxWeight := 0
 	for i, pos := range positions {
 		weight := getPositionWeight(pos, state, heuristics)
 		if weight > maxWeight {
-			maxPosition = pos
 			maxWeight = weight
 		}
-		values[i] = weight
-
+		weights[i] = weight
 	}
 
-	fmt.Printf("positions: %v\n, weights%v\n", positions, values)
-	fmt.Printf("MaxWeight: %v, MaxPos:%v\n", maxWeight, maxPosition)
-	// Abuse function to return the string of our max position
-	if maxWeight == 0 { return GetDirectionFromRandomPosition(positions, state)}
-	return GetDirectionFromRandomPosition([]Position{maxPosition}, state)
+	// Build a list of all max positions
+	var maxPositions []Position
+	for i, pos := range positions {
+		if weights[i] >= maxWeight {
+			maxPositions = append(maxPositions, pos)
+		}
+	}
+
+
+	fmt.Printf("positions: %v\n, weights%v\n", positions, weights)
+	fmt.Printf("MaxWeight: %v, MaxPos:%v\n", maxWeight, maxPositions)
+	// Get a random maximally weighted position
+	return GetDirectionFromRandomPosition(maxPositions, state)
 }
 
 func getPositionWeight(pos Position, state State, heuristics Heuristics) int {
