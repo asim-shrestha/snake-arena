@@ -6,6 +6,9 @@ import Alert from 'react-bootstrap/Alert';
 const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 	const [name, setName] = useState("");
 	const [type, setType] = useState("");
+	const [foodW, setFoodW] = useState("");
+	const [emptyW, setEmptyW] = useState("");
+	const [avoidW, setAvoidW] = useState("");
 	const [alertText, setAlertText] = useState("");
 	const [addedSnakeName, setAddedSnakeName] = useState("");
 	console.log(`name: "${name}", "${type}"`);
@@ -15,6 +18,9 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 		setType("1");
 		setAlertText("");
 		setAddedSnakeName("");
+		setFoodW("");
+		setEmptyW("");
+		setAvoidW("");
 	};
 
 	useEffect(() => {
@@ -68,7 +74,8 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 			name: name,
 			id: type,
 			hunger: 100,
-			body: [getSnakePosition(), getSnakePosition()]
+			body: [getSnakePosition(), getSnakePosition()],
+			weights: foodW + ',' + emptyW + ',' + avoidW,
 		});
 
 		setGameState({
@@ -83,7 +90,13 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 			setAlertText("Please add a name!");
 			return;
 		}
-
+		
+		if (type == "3") {
+			if (!foodW || !emptyW || !avoidW) {
+				setAlertText("Please fill smart snake fields!");
+				return;
+			}
+		}
 		if (isValidSnake()) {
 			const snakeName = name;
 			addSnakeToGameState();
@@ -119,6 +132,17 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 						<option value="player">Player controlled snake</option>
 					</Form.Control>
 				</Form.Group>
+				{
+					type == "3" ? 
+					<Form.Group>
+					<br />
+					<Form.Control type="number" size="lg" placeholder="Food weight" value={foodW} onChange={e => setFoodW(e.target.value)} />
+					<br />
+					<Form.Control type="number" size="lg" placeholder="Empty space weight" value={emptyW} onChange={e => setEmptyW(e.target.value)} />
+					<br />
+					<Form.Control type="number" size="lg" placeholder="Snake avoidance weight" value={avoidW} onChange={e => setAvoidW(e.target.value)} />
+				</Form.Group> : ""
+				}
 			</Form>
 		</AppModal>
 	);

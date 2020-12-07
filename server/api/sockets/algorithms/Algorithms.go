@@ -31,7 +31,6 @@ type State struct {
 type Heuristics struct {
 	foodWeight int
 	emptySpaceWeight int
-	aggressivenessWeight int
 	avoidanceWeight int
 }
 
@@ -44,7 +43,7 @@ type BFSNode struct {
 type BFSResult struct {
 	foodDepth int
 	emptySpaceDepth int
-	nearestHeadDepth int
+	nearestSnakeDepth int
 }
 
 //export BadSnake
@@ -70,7 +69,7 @@ func RandomSnake(stateStr, currX, currY string) *C.char {
 // Snake that moves directly to the nearest food
 // Leverages smart snake algorithm by abusing nearest food heuristic
 func HungrySnake(stateStr, currX, currY string) *C.char {
-	heuristicsStr := "100,1,1,1"
+	heuristicsStr := "100,1,1"
 	return SmartSnake(stateStr, currX, currY, heuristicsStr)
 }
 
@@ -92,13 +91,17 @@ func SmartSnake(stateStr, currX, currY, heuristicsStr string) *C.char {
 
 func GetDirectionFromHeuristics(positions []Position, state State, heuristics Heuristics) *C.char {
 	weights := []int{0, 0, 0, 0}
-	maxWeight := 0
 	for i, pos := range positions {
 		weight := getPositionWeight(pos, state, heuristics)
-		if weight > maxWeight {
-			maxWeight = weight
-		}
 		weights[i] = weight
+	}
+
+	// Find max
+	maxWeight := weights[0]
+	for i := range positions {
+		if weights[i] > maxWeight {
+			maxWeight = weights[i]
+		}
 	}
 
 	// Build a list of all max positions
@@ -117,11 +120,13 @@ func GetDirectionFromHeuristics(positions []Position, state State, heuristics He
 }
 
 func getPositionWeight(pos Position, state State, heuristics Heuristics) int {
-	MaxDepth := 15
+	MaxDepth := 20
 	res := BFS(state.board, pos, state, 3, MaxDepth)
 	foodWeight := (MaxDepth - res.foodDepth) * heuristics.foodWeight // Closer the food, the more it weighs
 	emptySpaceWeight := res.emptySpaceDepth * heuristics.emptySpaceWeight // More open space, the more it weighs
-	weight := foodWeight + emptySpaceWeight
+	avoidanceWeight := res.nearestSnakeDepth * heuristics.avoidanceWeight
+	weight := foodWeight + emptySpaceWeight + avoidanceWeight
+	fmt.Printf("NEAREST SNAKE %v weight%v\n", res.nearestSnakeDepth, heuristics.avoidanceWeight)
 	return weight
 }
 
@@ -129,10 +134,11 @@ func getPositionWeight(pos Position, state State, heuristics Heuristics) int {
 // Returns the closes depth of a search value within a given matrix
 // Will only go as deep as maxDepth allows
 func BFS(mat [][]int, startPos Position, state State, searchVal, maxDepth int) BFSResult {
-	res := BFSResult{foodDepth: maxDepth}
+	res := BFSResult{foodDepth: maxDepth, nearestSnakeDepth: maxDepth}
 	queue := list.New()
 	queue.PushBack(BFSNode{startPos, 1})
 	matrix := duplicateMatrix(mat)
+	//fmt.Println(matrix)
 	for queue.Len() > 0 {
 		// Get next element
 		curr := queue.Front()
@@ -143,23 +149,36 @@ func BFS(mat [][]int, startPos Position, state State, searchVal, maxDepth int) B
 		// Max depth reached
 		if node.depth > maxDepth { break }
 
+		// Test for in bounds
+		if !isPositionInBounds(pos, state) { continue }
+
+		// Don't look at the same value
+		if matrix[pos.y][pos.x] == 1 { continue }
+
+		// Test if we found closest enemy position
+		if res.nearestSnakeDepth == maxDepth {
+			if matrix[pos.y][pos.x] == 2 {
+				fmt.Printf("FOUD ONEtest x%v, y%x, with val %v\n", pos.x, pos.y, matrix[pos.y][pos.x])
+				res.nearestSnakeDepth = int(math.Abs(float64(pos.x) - float64(startPos.x)))
+				res.nearestSnakeDepth = int(math.Abs(float64(pos.y) - float64(startPos.y)))
+			}
+		}
+
+		if !isValidPosition(pos, state) { continue }
+
 		// Test if we found the closes food position
 		if res.foodDepth == maxDepth {
-
 			if matrix[pos.y][pos.x] == 3 {
-				fmt.Printf("Checking val: x:%v, y:%v : %v\n", pos.x, pos.y, matrix[pos.y][pos.x])
 				res.foodDepth = int(math.Abs(float64(pos.x) - float64(startPos.x)))
 				res.foodDepth += int(math.Abs(float64(pos.y) - float64(startPos.y)))
 			}
 		}
 
-		// TODO Test if we found a enemy head
-
 		// Mark as visited
 		matrix[pos.y][pos.x] = 1
 
 		// Add next elements to queue
-		addValidPositionsToQueue(queue, matrix, pos, state, node.depth + 1)
+		addPositionsToQueue(queue, matrix, pos, state, node.depth + 1)
 
 		// Update max depth
 		if node.depth + 1 > res.emptySpaceDepth {
@@ -179,11 +198,9 @@ func duplicateMatrix(matrix [][]int) [][]int {
 	return duplicate
 }
 
-func addValidPositionsToQueue(queue *list.List, matrix [][]int, pos Position, state State, depth int) {
-	validPositions := GetValidPositions(pos, state)
+func addPositionsToQueue(queue *list.List, matrix [][]int, pos Position, state State, depth int) {
+	validPositions := GetAllMovePositions(pos)
 	for _, pos := range validPositions {
-		// Don't look at the same value
-		if matrix[pos.y][pos.x] == 1 { continue }
 		(*queue).PushBack(BFSNode{pos, depth})
 	}
 }
@@ -236,8 +253,6 @@ func GetDirectionFromRandomPosition(positions []Position, state State) *C.char {
 func GetDirectionFromPosition(pos Position, state State) string {
 	velX := pos.x - state.currPos.x
 	velY := pos.y - state.currPos.y
-	fmt.Printf("currpos: %v, nextpos%v\n", state.currPos, pos)
-	fmt.Printf("xVel: %v, yVel%v\n", velX, velY)
 	if velX == -1 && velY ==  0 { return directionStrings[0] }
 	if velX ==  0 && velY == -1 { return directionStrings[1] }
 	if velX ==  1 && velY ==  0 { return directionStrings[2] }
@@ -260,9 +275,9 @@ func DecodeHeuristics(heuristicsStr string) Heuristics {
 
 	// Strip values from string and convert them to ints
 	decodedVals := strings.Split(heuristicsStr, ",")
-	for i, v := range decodedVals { vals[i] = strToInt(v)}
+	for i, v := range decodedVals { vals[i] = strToInt(v) }
 
-	return Heuristics{vals[0], vals[1], vals[2], vals[3]}
+	return Heuristics{vals[0], vals[1], vals[2]}
 }
 
 func DecodeStateStr(stateStr string) ([][]int, int, int) {
@@ -287,7 +302,6 @@ func DecodeStateStr(stateStr string) ([][]int, int, int) {
 			board[i][j] = strToInt(col)
 		}
 	}
-	fmt.Println(board)
 	return board, width, height
 }
 

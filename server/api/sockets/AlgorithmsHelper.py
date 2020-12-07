@@ -33,7 +33,11 @@ def hungry_snake(state, snake):
 
 def smart_snake(state, snake):
 	lib.SmartSnake.restype = c_char_p
-	return lib.BadSnake().decode("utf-8")
+	encodedState = get_encoded_state(state, snake)
+	currX = str(snake['pos']['x'])
+	currY = str(snake['pos']['y'])
+	weights = str(snake['weights'])
+	return lib.SmartSnake(GetGoString(encodedState), GetGoString(currX), GetGoString(currY), GetGoString(weights)).decode("utf-8")
 
 def encode_state(state, snake):
 	stateMat = get_state_matrix(state)

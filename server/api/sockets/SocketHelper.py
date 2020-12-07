@@ -84,6 +84,8 @@ def get_ai_velocity(state, snake, session, sid):
 		pos = AlgorithmsHelper.random_snake(state, snake)
 	elif sid == '2':
 		pos = AlgorithmsHelper.hungry_snake(state, snake)
+	elif sid == '3':
+		pos = AlgorithmsHelper.smart_snake(state, snake)
 	return Directions.GetVelocityFromString(pos)
 	
 def update_velocity_if_running_into_self(vel, snake):
