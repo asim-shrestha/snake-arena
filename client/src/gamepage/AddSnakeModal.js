@@ -5,14 +5,14 @@ import Alert from 'react-bootstrap/Alert';
 
 const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 	const [name, setName] = useState("");
-	const [type, setType] = useState("0");
+	const [type, setType] = useState("");
 	const [alertText, setAlertText] = useState("");
 	const [addedSnakeName, setAddedSnakeName] = useState("");
 	console.log(`name: "${name}", "${type}"`);
 
 	const resetValues = () => {
 		setName("");
-		setType("0");
+		setType("1");
 		setAlertText("");
 		setAddedSnakeName("");
 	};

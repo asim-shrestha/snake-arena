@@ -29,17 +29,6 @@ def create_game_state(width, height, snakes):
 		'snakes': snakes
 	}
 
-	# [[0 0 0 0 0 0 0] 
-	# [0 0 0 0 0 0 0] 
-	# [0 0 0 0 0 0 0] 
-	# [0 0 0 1 0 0 0] 
-	# [0 0 0 0 0 0 0] 
-	# [0 0 0 0 0 0 0] 
-	# [0 0 0 0 0 0 0] 
-	# [0 0 0 0 0 0 0] 
-	# [0 0 0 0 0 0 0] 
-	# [0 0 0 0 0 0 0]]  
-
 def get_snake_start(i, width, height):
 	if (i == 0): return { 'x': 3, 'y': 3 }
 	elif (i == 1): return { 'x': width - 4, 'y': 3 }
