@@ -78,6 +78,9 @@ extern char* RandomSnake(GoString p0, GoString p1, GoString p2);
 
 extern char* HungrySnake(GoString p0, GoString p1, GoString p2);
 
+// Uses heuristics to make decisions
+// Heuristics include how close food is, how much free space there is, and how close enemies are
+
 extern char* SmartSnake(GoString p0, GoString p1, GoString p2, GoString p3);
 
 #ifdef __cplusplus

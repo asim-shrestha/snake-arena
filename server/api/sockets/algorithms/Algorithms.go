@@ -3,7 +3,6 @@ package main
 import (
 	"C"
 	"container/list"
-	"fmt"
 	"math"
 	"math/rand"
 	"strconv"
@@ -12,10 +11,11 @@ import (
 
 )
 
+// Init RNG
 var gen = rand.New(rand.NewSource(time.Now().UnixNano()))
 var directionStrings = []string{"left", "up", "right", "down"}
 
-// Struct that represents the current position of the snake
+// Struct that represents a position on the board
 type Position struct {
 	x, y int
 }
@@ -40,6 +40,8 @@ type BFSNode struct {
 	depth int
 }
 
+// Result of calling BFS at a position
+// Gives values required for heuristics
 type BFSResult struct {
 	foodDepth int
 	emptySpaceDepth int
@@ -74,6 +76,8 @@ func HungrySnake(stateStr, currX, currY string) *C.char {
 }
 
 //export SmartSnake
+// Uses heuristics to make decisions
+// Heuristics include how close food is, how much free space there is, and how close enemies are
 func SmartSnake(stateStr, currX, currY, heuristicsStr string) *C.char {
 	state := DecodeState(stateStr, currX, currY)
 	validPositions := GetValidPositions(state.currPos, state)
@@ -81,7 +85,7 @@ func SmartSnake(stateStr, currX, currY, heuristicsStr string) *C.char {
 	// No valid directions possible, return a random direction
 	if len(validPositions) == 0 { return GetRandomDirection() }
 
-	// Only one position, don't use heuristics
+	// Only one position, don't use heuristics to save cycles
 	if len(validPositions) == 1 { return GetDirectionFromRandomPosition(validPositions, state) }
 
 	// Get direction through heuristics
@@ -89,14 +93,18 @@ func SmartSnake(stateStr, currX, currY, heuristicsStr string) *C.char {
 	return GetDirectionFromHeuristics(validPositions, state, heuristics)
 }
 
+
+// Use heuristics to get best direction
 func GetDirectionFromHeuristics(positions []Position, state State, heuristics Heuristics) *C.char {
+	// Get the weight of each move via heuristics
+	// Higher is better
 	weights := []int{0, 0, 0, 0}
 	for i, pos := range positions {
 		weight := getPositionWeight(pos, state, heuristics)
 		weights[i] = weight
 	}
 
-	// Find max
+	// Find maximum weight of move
 	maxWeight := weights[0]
 	for i := range positions {
 		if weights[i] > maxWeight {
@@ -104,7 +112,7 @@ func GetDirectionFromHeuristics(positions []Position, state State, heuristics He
 		}
 	}
 
-	// Build a list of all max positions
+	// Build a list of all max positions to pick from
 	var maxPositions []Position
 	for i, pos := range positions {
 		if weights[i] >= maxWeight {
@@ -112,13 +120,11 @@ func GetDirectionFromHeuristics(positions []Position, state State, heuristics He
 		}
 	}
 
-
-	fmt.Printf("positions: %v\n, weights%v\n", positions, weights)
-	fmt.Printf("MaxWeight: %v, MaxPos:%v\n", maxWeight, maxPositions)
 	// Get a random maximally weighted position
 	return GetDirectionFromRandomPosition(maxPositions, state)
 }
 
+// Get the weight of a position based on heuristics
 func getPositionWeight(pos Position, state State, heuristics Heuristics) int {
 	MaxDepth := 20
 	res := BFS(state.board, pos, state, 3, MaxDepth)
@@ -126,12 +132,11 @@ func getPositionWeight(pos Position, state State, heuristics Heuristics) int {
 	emptySpaceWeight := res.emptySpaceDepth * heuristics.emptySpaceWeight // More open space, the more it weighs
 	avoidanceWeight := res.nearestSnakeDepth * heuristics.avoidanceWeight
 	weight := foodWeight + emptySpaceWeight + avoidanceWeight
-	fmt.Printf("NEAREST SNAKE %v weight%v\n", res.nearestSnakeDepth, heuristics.avoidanceWeight)
 	return weight
 }
 
 
-// Returns the closes depth of a search value within a given matrix
+// Returns the closes depth food, enemies, and how much free space is available
 // Will only go as deep as maxDepth allows
 func BFS(mat [][]int, startPos Position, state State, searchVal, maxDepth int) BFSResult {
 	res := BFSResult{foodDepth: maxDepth, nearestSnakeDepth: maxDepth}
@@ -158,7 +163,6 @@ func BFS(mat [][]int, startPos Position, state State, searchVal, maxDepth int) B
 		// Test if we found closest enemy position
 		if res.nearestSnakeDepth == maxDepth {
 			if matrix[pos.y][pos.x] == 2 {
-				fmt.Printf("FOUD ONEtest x%v, y%x, with val %v\n", pos.x, pos.y, matrix[pos.y][pos.x])
 				res.nearestSnakeDepth = int(math.Abs(float64(pos.x) - float64(startPos.x)))
 				res.nearestSnakeDepth = int(math.Abs(float64(pos.y) - float64(startPos.y)))
 			}
@@ -205,6 +209,7 @@ func addPositionsToQueue(queue *list.List, matrix [][]int, pos Position, state S
 	}
 }
 
+// Get all valid moves given a position on the matrix
 func GetValidPositions(startPos Position, state State) []Position {
 	var validPositions []Position
 	movePositions := GetAllMovePositions(startPos)
@@ -218,6 +223,7 @@ func GetValidPositions(startPos Position, state State) []Position {
 	return validPositions
 }
 
+// Returns the positions of all possible moves
 func GetAllMovePositions(pos Position) []Position {
 	return []Position{
 		{pos.x - 1, pos.y},
@@ -246,7 +252,6 @@ func isPositionSafe(pos Position, state State) bool {
 func GetDirectionFromRandomPosition(positions []Position, state State) *C.char {
 	idx := gen.Intn(len(positions))
 	pos := positions[idx]
-	fmt.Printf("DIRECTIONS: %v\n", GetDirectionFromPosition(pos, state))
 	return C.CString(GetDirectionFromPosition(pos, state))
 }
 
@@ -270,6 +275,8 @@ func DecodeState(stateStr, currX, currY string) State {
 	return State{width, height, board, currPos	}
 }
 
+
+// Decodes heuristics from python sent string
 func DecodeHeuristics(heuristicsStr string) Heuristics {
 	vals := []int{0, 0, 0, 0}
 
