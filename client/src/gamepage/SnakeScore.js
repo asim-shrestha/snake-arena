@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const Bar = styled(ProgressBar)`
 
 `;
-const SnakeScore = ({ snake, deleteSnake}) => {
+const SnakeScore = ({ snake, deleteDisabled, deleteSnake}) => {
 	let { name, hunger, isWinner, isAlive } = snake;
 	let medallion = '';
 	let variant = '';
@@ -31,7 +31,7 @@ const SnakeScore = ({ snake, deleteSnake}) => {
 		<>
 			<div className={nameClass + " mt-2"}>
 				<h4 className={"d-inline"}>{name} ({Math.round(hunger) + "/100"}) {medallion}</h4>
-				<Button className="float-right close" variant="light" size="sm" onClick={deleteSnake}>
+				<Button disabled={deleteDisabled} className="float-right close" variant="light" size="sm" onClick={deleteSnake}>
 					<h4 className="mb-0">❌</h4>
 				</Button>
 			</div>

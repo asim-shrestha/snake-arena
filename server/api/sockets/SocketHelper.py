@@ -19,6 +19,7 @@ def create_game_state(gameData):
 		snakeNum += 1
 
 	return {
+		'isGameOver': False,
 		'fps': gameData['fps'],
 		'width': gameData['width'],
 		'height': gameData['height'],

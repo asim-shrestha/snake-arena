@@ -33,7 +33,7 @@ async def gameInterval(sid, state):
 		await sio.emit('game_state', state)
 		await gameInterval(sid, state)
 	else:
-		await sio.emit('game_state', state)
+		state['isGameOver'] = True
 		await sio.emit('game_over', state)
 
 def is_game_over(state, numSnakes):
