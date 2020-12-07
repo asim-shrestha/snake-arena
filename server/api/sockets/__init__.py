@@ -14,15 +14,15 @@ def connect(sid, environ):
 	return "OK"
 
 @sio.event
-async def start_game(sid, data):
+async def start_game(sid, gameData):
 	await sio.save_session(sid, {}) # Clear session
-	state = SocketHelper.create_game_state(data['width'], data['height'], data['snakes'])
+	state = SocketHelper.create_game_state(gameData)
 	sio.start_background_task(gameInterval, sid, state)
 	return "OK" 
 
 async def gameInterval(sid, state):
 	# Wait for frames 
-	FPS = 10
+	FPS = state['fps']
 	await asyncio.sleep(1 / FPS)
 	
 	session = await sio.get_session(sid)

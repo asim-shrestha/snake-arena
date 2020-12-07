@@ -36,7 +36,8 @@ const GamePage = () => {
 		fps: 10,
 		width: 8,
 		height: 10,
-		snakes: []
+		snakes: [],
+		spawnRate: 5,
 	});
 	console.log(gameState)
 	const [showAddSnakeModal, setShowAddSnakeModal] = useState(false);
@@ -58,7 +59,7 @@ const GamePage = () => {
 		}
 
 		// Start the game
-		socket.emit('start_game', {width: gameState.width, height: gameState.height, snakes: gameState.snakes});
+		socket.emit('start_game', gameState);
 		socket.on('game_state', (data) => {
 			setGameState(data);
 		})

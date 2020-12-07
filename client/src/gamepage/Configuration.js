@@ -26,9 +26,10 @@ const Configuration = ({gameState, setGameState}) => {
 		<ConfigurationBoard>
 			<h2>Game Settings: </h2>
 			<div className="m-3">
-				<Slider text="Speed (FPS)" min="1" max="15" value={gameState.fps}    onChange={(e) => updateGameState('fps', e.target.value)}/>
+				<Slider text="Speed (FPS)" min="7" max="15" value={gameState.fps}    onChange={(e) => updateGameState('fps', parseInt(e.target.value))}/>
 				<Slider text="Game Width"  min="5" max="15" value={gameState.width}  onChange={(e) => updateGameState('width', parseInt(e.target.value))}/>
 				<Slider text="Game Height" min="5" max="15" value={gameState.height} onChange={(e) => updateGameState('height', parseInt(e.target.value))}/>
+				<Slider text="Food Spawn Rate" min="0" max="20" value={gameState.spawnRate} onChange={(e) => updateGameState('spawnRate', parseInt(e.target.value))}/>
 			</div>
 		</ConfigurationBoard>
 	)

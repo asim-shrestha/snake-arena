@@ -3,30 +3,31 @@ import random
 from . import AlgorithmsHelper
 from . import Directions
 
-def create_game_state(width, height, snakes):
+def create_game_state(gameData):
 	# Position snakes
 	snakeNum = 0
-	for snake in snakes:
+	for snake in gameData['snakes']:
 		snake['hunger'] = 105
 		snake['isAlive'] = True
 		snake['death'] = ""
 		snake['isWinner'] = False
 
 		# Set pos
-		start = get_snake_start(snakeNum, width, height)
+		start = get_snake_start(snakeNum, gameData['width'], gameData['height'])
 		snake['body'] = [start.copy(), start.copy()] # Two body peices on top of each other
 		snake['pos'] = start.copy()
 		snakeNum += 1
 
 	return {
-		'width': width,
-		'height': height,
-		'spawn_rate': 5,
+		'fps': gameData['fps'],
+		'width': gameData['width'],
+		'height': gameData['height'],
+		'spawn_rate': gameData['spawnRate'],
 		'turns_till_food': 25,
 		'turns_since_food': 0,
 		'food': [
 		],
-		'snakes': snakes
+		'snakes': gameData['snakes']
 	}
 
 def get_snake_start(i, width, height):
