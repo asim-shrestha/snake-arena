@@ -126,7 +126,7 @@ func GetDirectionFromHeuristics(positions []Position, state State, heuristics He
 
 // Get the weight of a position based on heuristics
 func getPositionWeight(pos Position, state State, heuristics Heuristics) int {
-	MaxDepth := 20
+	MaxDepth := 15
 	res := BFS(state.board, pos, state, 3, MaxDepth)
 	foodWeight := (MaxDepth - res.foodDepth) * heuristics.foodWeight // Closer the food, the more it weighs
 	emptySpaceWeight := res.emptySpaceDepth * heuristics.emptySpaceWeight // More open space, the more it weighs

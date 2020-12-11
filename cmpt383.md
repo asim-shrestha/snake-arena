@@ -9,9 +9,7 @@ This project is tentatively called <b>Snake Arena</b> and is inspired by [Battle
 - Ability to configure your own AI battlesnake through adjusting what the snake prioritizes. 
 - Contains pre-built snake AI's that use DFS + heuristics to most optimally survive.
 - Ability to add and remove custom and pre-built snakes onto a game.
-- Ability to customize snake look and colour.
-- Will house a leaderboard of the current best snake AI's along with players.
-- Ability to go forward and backwards through a game.
+- Will house a leaderboard of the players.
 - Ability to manually control a snake yourself and play against AI snakes.
 
 ## Languages and roles
@@ -25,4 +23,6 @@ This project is tentatively called <b>Snake Arena</b> and is inspired by [Battle
 
 ## Deployment
 This project will be deployed through the use of Docker containers. Run the command below to deploy. Currently, running this will just display hello world through both JavaScript and Python but in the future will open up the web servers. A C++ hello world is not displayed as there will be no container for C++.
-> `docker-compose up`
+> $`docker-compose up`
+
+>Travel to http://localhost:3000/ on your web browser

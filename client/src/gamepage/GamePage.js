@@ -73,7 +73,9 @@ const GamePage = () => {
 	const handleEndGame = () => {
 		// Check if we need to leave from the server
 		if (!gameState.isGameOver) {
-			socket.emit('reset');
+			socket.emit('reset', () => {
+				setGameState({...gameState, isGameOver: true});
+			});
 		}
 	}
 

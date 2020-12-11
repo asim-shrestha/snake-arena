@@ -91,7 +91,7 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 			return;
 		}
 		
-		if (type == "3") {
+		if (type === "3") {
 			if (!foodW || !emptyW || !avoidW) {
 				setAlertText("Please fill smart snake fields!");
 				return;
@@ -133,7 +133,7 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 					</Form.Control>
 				</Form.Group>
 				{
-					type == "3" ? 
+					type === "3" ? 
 					<Form.Group>
 					<br />
 					<Form.Control type="number" size="lg" placeholder="Food weight" value={foodW} onChange={e => setFoodW(e.target.value)} />

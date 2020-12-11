@@ -5,7 +5,7 @@ import logging
 from . import SocketHelper
 from . import Directions
 
-sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins=[], logger=True)
+sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins=[])
 sio_app = socketio.ASGIApp(sio)
 
 @sio.event
@@ -22,20 +22,24 @@ async def start_game(sid, gameData):
 	return "OK" 
 
 async def gameInterval(sid, state):
-	# Wait for frames 
-	await asyncio.sleep(1 / state['fps'])
-	
-	session = await sio.get_session(sid)
-	numSnakes = SocketHelper.game_loop(state, session);
-	isGameOver = is_game_over(state, numSnakes, session)
-	if not isGameOver:
+	# Wait for frames
+
+	while True:
+		await asyncio.sleep(1 / state['fps'])
+		
+		session = await sio.get_session(sid)
+		numSnakes = SocketHelper.game_loop(state, session);
+		isGameOver = is_game_over(state, numSnakes, session)
+
+		if isGameOver: break
+
 		# Game not over, emit data, wait, and rerun interval
 		await sio.emit('game_state', state, room=sid)
-		await gameInterval(sid, state)
-	else:
-		state['isGameOver'] = True
-		await sio.emit('game_over', state, room=sid)
-		sio.leave_room(sid, sid)
+
+	# Game is over
+	state['isGameOver'] = True
+	await sio.emit('game_over', state, room=sid)
+	sio.leave_room(sid, sid)
 
 def is_game_over(state, numSnakes, session):
 	# Check if player quit
