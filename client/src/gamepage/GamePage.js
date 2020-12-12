@@ -8,6 +8,7 @@ import ShadedDiv from '../ShadedDiv';
 import Configuration from './Configuration';
 import AddSnakeModal from './AddSnakeModal';
 import PlayErrorModal from '../PlayErrorModal';
+import Axios from 'axios';
 
 const CenteredDiv = styled.div`
 	display: flex;
@@ -54,6 +55,21 @@ const GamePage = () => {
 	// eslint-disable-next-line
 	}, []);
 
+	const updateLeaderboard = (data) => {
+		console.log(data)
+		for(let i = 0; i < data.length; i++) {
+			const snake = data[i];
+			if (snake.id == "player"){
+				if (snake.death === "The game was forcefully ended") { return; }
+				Axios.post(`http://localhost:5000/leaderboard/`, {
+					name: snake.name,
+					wonGame: snake.isAlive,
+				})
+				return;
+			}
+		}
+	}
+
 	const handlePlay = () => {
 		// Don't play if too few snakes
 		if (gameState.snakes.length <= 0) {
@@ -69,6 +85,7 @@ const GamePage = () => {
 		socket.on('game_over', (data) => {
 			// Handle game over
 			setGameState(data);
+			updateLeaderboard(data.snakes);
 		});
 	};
 

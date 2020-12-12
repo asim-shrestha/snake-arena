@@ -39,7 +39,6 @@ async def gameInterval(sid, state):
 	# Game is over
 	state['isGameOver'] = True
 	await sio.emit('game_over', state, room=sid)
-	update_leaderboard(state)
 	sio.leave_room(sid, sid)
 
 def is_game_over(state, numSnakes, session):
@@ -56,11 +55,6 @@ def is_game_over(state, numSnakes, session):
 	if numSnakes == 1 and len(state['snakes']) > 1:
 		SocketHelper.set_winner(state)
 		return True # 1 Snake among many left
-
-def update_leaderboard():
-	for snake in state['snakes']:
-		snake['id'] == 'player'
-		upsert_user
 
 @sio.event
 async def reset(sid):

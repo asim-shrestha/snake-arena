@@ -13,13 +13,15 @@ This project is called <b>Snake Arena</b> and is inspired by [BattleSnake](https
 - Will house a leaderboard of the players.
 
 ## Languages and roles
-1. <b>Javascript</b>: The front end of the project and will be powered by React. This is where game creation and game configuration logic will reside. The front end will also house a leaderboard page from data retrieved through the back end.
+1. <b>Javascript</b>: The front end of the project and will be powered by React and React Bootstrap. This is where game creation and game configuration logic will reside. The front end will also house a leaderboard page from data retrieved through the back end.
 2. <b>Python</b>: The back end of the project, powered by FastAPI and socketIO. Will host and run snake games and return results to the front end. Will also be used to persistently store snake data with SQLite. 
 3. <b>GoLang</b>: Will house all of the AI snake algorithms and will be called through Python. Makes heavy use of Go structs.
 
 ## Inter-Language communication methods
-1. A foreign function interface in which C++ code to control snake movement will be called through the Python backend. How exactly the two will interface has not been decided. (Maybe SWIG)
-2. A python REST server in which the JavaScript front end will send game configuration information and recieve back game information.
+There are 3 ways in which languages communicate with each other within this app.
+1. A socketIO client / server web socket connection. This is used in order to stream real time game information between the client (JavaScript) and server (Python). When a game is started, the server will place clients in their own rooms and serve them asynchronously. This means that you can have multiple tabs open and play different games concurrently without any issues. The game operates on frame intervals. At each interval, the socket server will see what the user has input if a user snake exists, figure out AI moves if they exist, and then send the game state to the client. Meanwhile, the client is free to send key presses indicating the player snake direction at any time.
+2. A python FastAPI REST server that integrates with SQLite in order to store data for a player snake leaderboard. Whenever a player snake finishes a game, he is either inserted into the leaderboard or has their leaderboard values updated through the socket backend. The interface to make crud operations however is exposed through this rest server. Then when the client visits the leaderboard page, they make a get request to this server and is sent back the leaderboard information. For convenience, the database will come with pre-existing data. 
+3. A foreign function interface in which GoLang code that facilitates AI snake movement algorithms will be called through the Python backend. The Go code is compiled into a shared C library in which python is able to call it through the ctypes package. In order to pass data back and forth between the two langagues, each language will both serialize game state data into a string when sending data and deserialize when recieving data.
 
 ## Deployment
 This project will be deployed through the use of Docker containers. Run the command below to deploy. Currently, running this will just display hello world through both JavaScript and Python but in the future will open up the web servers. A C++ hello world is not displayed as there will be no container for C++.
