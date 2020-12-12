@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Leaderboard from './Leaderboard';
 
 const ShadedH1 = styled.h1`
 	color: white;
@@ -12,6 +13,7 @@ const LeaderboardPage = () => {
 	return (
 		<>
 			<ShadedH1>The Leaderboard</ShadedH1>
+			<Leaderboard/>
 		</>
 	);
 };
