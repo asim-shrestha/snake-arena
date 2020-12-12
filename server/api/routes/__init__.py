@@ -39,15 +39,6 @@ def readLeaderboard(db: Session = Depends(get_db)):
     users = crud.get_users(db, skip=0, limit=100)
     return users
 
-@router.get('/test')
-async def leaderboard():
-    return {"data": [{
-        "name": "Asim",
-		"wins": 10,
-		"losses": 0,
-		"average_size": 50,
-    }]}
-
 # Secure Routes
 app.include_router(
     router, tags=['Leaderboard Information'], prefix='/leaderboard')
