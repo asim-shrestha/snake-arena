@@ -25,12 +25,8 @@ function App() {
 
 			<Page>
 				<Switch>
-					<Route path="/leaderboard" exact>
-						<LeaderboardPage/>
-					</Route>
-					<Route path="/">
-						<GamePage />
-					</Route>
+					<Route path="/leaderboard" exact component={LeaderboardPage}/>
+					<Route path="/" component={GamePage}/>
 				</Switch>
 			</Page>
 		</div>

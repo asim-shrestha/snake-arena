@@ -38,12 +38,20 @@ const GamePage = () => {
 	const [showAddSnakeModal, setShowAddSnakeModal] = useState(false);
 	const [showPlayErrorModal, setShowPlayErrorModal] = useState(false);
 
+	const leaveGame = () => {
+			socket.emit('reset', () => {
+				setGameState({ ...gameState, isGameOver: true });
+			});
+	}
+
 	useEffect(() => {
 		window.addEventListener('keydown', handleKeyDown);
 		// cleanup this component
 		return () => {
+			leaveGame();
 			window.removeEventListener('keydown', handleKeyDown);
 		};
+	// eslint-disable-next-line
 	}, []);
 
 	const handlePlay = () => {
@@ -65,12 +73,7 @@ const GamePage = () => {
 	};
 
 	const handleEndGame = () => {
-		// Check if we need to leave from the server
-		if (!gameState.isGameOver) {
-			socket.emit('reset', () => {
-				setGameState({ ...gameState, isGameOver: true });
-			});
-		}
+		leaveGame();
 	};
 
 	const handleKeyDown = (e) => {
