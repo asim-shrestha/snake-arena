@@ -34,7 +34,7 @@ def upsert_user(user: schemas.UserBase, db: Session = Depends(get_db)):
 		return crud.create_user(db=db, user=user)
 
 @router.get('/', response_model=List[schemas.User])
-def readLeaderboard(db: Session = Depends(get_db)):
+def get_leaderboard(db: Session = Depends(get_db)):
     users = crud.get_users(db, skip=0, limit=100)
     return users
 
