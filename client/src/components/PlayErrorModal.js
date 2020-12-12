@@ -1,7 +1,7 @@
-import React from 'react'
-import AppModal from './AppModal'
+import React from 'react';
+import AppModal from './AppModal';
 
-const PlayErrorModal = ({show, setShow}) => {
+const PlayErrorModal = ({ show, setShow }) => {
 	return (
 		<AppModal
 			show={show}
@@ -10,7 +10,7 @@ const PlayErrorModal = ({show, setShow}) => {
 		>
 			<p>You must add at least one snake to play 🐍</p>
 		</AppModal>
-	)
-}
+	);
+};
 
-export default PlayErrorModal
+export default PlayErrorModal;

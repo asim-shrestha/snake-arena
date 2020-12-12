@@ -1,7 +1,7 @@
-import React from 'react'
-import AppModal from './AppModal'
+import React from 'react';
+import AppModal from './AppModal';
 
-const TutorialModal = ({show, setShow}) => {
+const TutorialModal = ({ show, setShow }) => {
 	return (
 		<AppModal
 			show={show}
@@ -40,7 +40,7 @@ const TutorialModal = ({show, setShow}) => {
 				Note that single player games do not count towards the leaderboard.
 			</p>
 		</AppModal>
-	)
-}
+	);
+};
 
-export default TutorialModal
+export default TutorialModal;

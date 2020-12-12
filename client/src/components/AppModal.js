@@ -1,10 +1,10 @@
-import React from 'react'
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
+import React from 'react';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
-const AppModal = ({show, setShow, title, buttonData, children}) => {
+const AppModal = ({ show, setShow, title, buttonData, children }) => {
 	const closeModal = () => setShow(false);
-	
+
 	return (
 		<Modal
 			show={show}
@@ -24,12 +24,12 @@ const AppModal = ({show, setShow, title, buttonData, children}) => {
 			<Modal.Footer>
 				{
 					buttonData ?
-					<Button onClick={buttonData.onClick}>{buttonData.text}</Button> : "" 
+						<Button onClick={buttonData.onClick}>{buttonData.text}</Button> : ""
 				}
 				<Button onClick={closeModal}>Close</Button>
 			</Modal.Footer>
 		</Modal>
-	)
-}
+	);
+};
 
-export default AppModal
+export default AppModal;
