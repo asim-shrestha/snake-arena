@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AppModal from '../AppModal';
+import AppModal from '../components/AppModal';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import AppNavBar from './AppNavBar';
 import GamePage from './gamepage/GamePage';
 import LeaderboardPage from './leaderboard/LeaderboardPage';
-import TutorialModal from './TutorialModal';
+import TutorialModal from './components/TutorialModal';
 
 export const SIDE_PADDING = "10em";
 

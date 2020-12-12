@@ -1,7 +1,7 @@
 import React from 'react';
 import Slider from './Slider';
 import styled from 'styled-components';
-import ShadedDiv from '../ShadedDiv';
+import ShadedDiv from '../components/ShadedDiv';
 
 const ConfigurationBoard = styled(ShadedDiv)`
 	border-radius: 25px;

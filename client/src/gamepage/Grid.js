@@ -1,7 +1,7 @@
 import React from 'react'
 import Tile from './Tile'
 import styled from 'styled-components'
-import ShadedDiv from '../ShadedDiv'
+import ShadedDiv from '../components/ShadedDiv'
 import Scores from './Scores';
 
 const GridBorder = styled(ShadedDiv)`

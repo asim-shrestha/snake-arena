@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import socketIOClient from "socket.io-client";
-import ShadedDiv from '../ShadedDiv';
+import ShadedDiv from '../components/ShadedDiv';
 import Configuration from './Configuration';
 import AddSnakeModal from './AddSnakeModal';
-import PlayErrorModal from '../PlayErrorModal';
+import PlayErrorModal from '../components/PlayErrorModal';
 import Axios from 'axios';
 
 const CenteredDiv = styled.div`
@@ -59,7 +59,7 @@ const GamePage = () => {
 		console.log(data)
 		for(let i = 0; i < data.length; i++) {
 			const snake = data[i];
-			if (snake.id == "player"){
+			if (snake.id === "player"){
 				if (snake.death === "The game was forcefully ended") { return; }
 				Axios.post(`http://localhost:5000/leaderboard/`, {
 					name: snake.name,
