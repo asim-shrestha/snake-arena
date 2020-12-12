@@ -56,9 +56,13 @@ const GamePage = () => {
 	}, []);
 
 	const updateLeaderboard = (data) => {
-		console.log(data);
+		// Test if it was a single player game
+		if(data.length <= 1) { return; }
+
 		for (let i = 0; i < data.length; i++) {
 			const snake = data[i];
+
+			// Test if it was a player and update leaderboard if it was
 			if (snake.id === "player") {
 				if (snake.death === "The game was forcefully ended") { return; }
 				Axios.post(`http://localhost:5000/leaderboard/`, {

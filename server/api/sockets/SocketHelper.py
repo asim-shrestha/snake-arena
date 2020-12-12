@@ -32,6 +32,7 @@ def create_game_state(gameData):
 		'snakes': gameData['snakes']
 	}
 
+# Positions the snake on the board based on their position in the snake list
 def get_snake_start(i, width, height):
 	if (i == 0): return { 'x': 3, 'y': 3 }
 	elif (i == 1): return { 'x': width - 4, 'y': 3 }

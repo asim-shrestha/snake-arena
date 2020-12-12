@@ -3,7 +3,7 @@
 The final project for CMPT383 by Asim Shrestha.
 
 ## Topic Idea
-This project is called <b>Snake Arena</b> and is inspired by [BattleSnake](https://play.battlesnake.com/), an online AI competition in which you create your own snake AI to battle other AI's. This project is a web app and serves as both a stand alone game of snake in which you battle amongst AI's and as a testing ground to build the best snake AI for future battle snake tournaments. The rules of the game and how to play may be confusing at first. Luckily, there is a tutorial modal that opens right when you visit the website! Please get a good read through of the modal prior to playing. 
+This project is called <b>Snake Arena</b> and is inspired by [BattleSnake](https://play.battlesnake.com/), an online AI competition in which you create your own snake AI to battle other AI's. This project is a web app and serves as both a stand alone game of snake in which you battle amongst AI's and as a testing ground to build the best snake AI for future battle snake tournaments. The rules of the game and how to play may be confusing at first. Luckily, there is a tutorial modal that opens right when you visit the website! Please get a good read through of the modal prior to playing. PS: try maxing out all of the in game settings with one of the AI snakes and enjoy watching it fill up the board.
 
 ### Prominent Inclusions:
 - Ability to manually control a snake yourself and play against AI snakes.
@@ -14,10 +14,10 @@ This project is called <b>Snake Arena</b> and is inspired by [BattleSnake](https
 - Leaderboard of player controlled snakes to house win / loss information.
 - Lots of front end validation to mitagate error inputs.
 - App logo and favicon.
-- RestAPI documentation and request up due to FastAPI (See deployment section for access).
+- RestAPI documentation and request building platform built in due to FastAPI (See deployment section for access).
 
 ## Languages and roles
-1. <b>Javascript</b>: The front end of the project and will be powered by React and React Bootstrap. This is where game creation and game configuration logic will reside. For game playing, the initial game state is created here and then passed to the socketIO backend and handled there. The front end also houses a leaderboard page generated from data retrieved through back end API requests.
+1. <b>Javascript</b>: The front end of the project, powered by React and React Bootstrap. This is where game creation and game configuration logic will reside. For game playing, the initial game state is created here and then passed to the socketIO backend and handled there. The front end also houses a leaderboard page generated from data retrieved through back end API requests.
 2. <b>Python</b>: The back end of the project, powered by FastAPI, socketIO, and SQLAlchemy. Will host and run snake games and return results to the front end. Will also be used to persistently store snake data with SQLite. Also has a Rest API in order to create and retrieve data pertaining to the leaderboard. 
 3. <b>GoLang</b>: Will house all of the AI snake algorithms and will be called through Python. Makes heavy use of Go structs. Utilizes a heuristic based depth first search algorithm to make intelligent movement decisions.
 
