@@ -40,10 +40,10 @@ const GamePage = () => {
 	const [showPlayErrorModal, setShowPlayErrorModal] = useState(false);
 
 	const leaveGame = () => {
-			socket.emit('reset', () => {
-				setGameState({ ...gameState, isGameOver: true });
-			});
-	}
+		socket.emit('reset', () => {
+			setGameState({ ...gameState, isGameOver: true });
+		});
+	};
 
 	useEffect(() => {
 		window.addEventListener('keydown', handleKeyDown);
@@ -52,23 +52,23 @@ const GamePage = () => {
 			leaveGame();
 			window.removeEventListener('keydown', handleKeyDown);
 		};
-	// eslint-disable-next-line
+		// eslint-disable-next-line
 	}, []);
 
 	const updateLeaderboard = (data) => {
-		console.log(data)
-		for(let i = 0; i < data.length; i++) {
+		console.log(data);
+		for (let i = 0; i < data.length; i++) {
 			const snake = data[i];
-			if (snake.id === "player"){
+			if (snake.id === "player") {
 				if (snake.death === "The game was forcefully ended") { return; }
 				Axios.post(`http://localhost:5000/leaderboard/`, {
 					name: snake.name,
 					wonGame: snake.isAlive,
-				})
+				});
 				return;
 			}
 		}
-	}
+	};
 
 	const handlePlay = () => {
 		// Don't play if too few snakes

@@ -2,7 +2,7 @@ import React from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button';
 
-const SnakeScore = ({ snake, deleteDisabled, deleteSnake}) => {
+const SnakeScore = ({ snake, deleteDisabled, deleteSnake }) => {
 	let { name, hunger, isWinner, isAlive } = snake;
 	let medallion = '';
 	let variant = '';
@@ -16,14 +16,14 @@ const SnakeScore = ({ snake, deleteDisabled, deleteSnake}) => {
 		variant = 'danger';
 	}
 
-	
+
 	// Cap hunger from 0 - 100
 	if (hunger && hunger >= 100) { hunger = 99; }
 	if (hunger && hunger < 0) { hunger = 0; }
-	hunger = Math.round(hunger)
+	hunger = Math.round(hunger);
 
 	// Pad value so that the score doesn't jitter
-	hunger = hunger.toString().padStart(3 - hunger.toString().length, '0')
+	hunger = hunger.toString().padStart(3 - hunger.toString().length, '0');
 
 	// Remove bottom name margin if snake is dead to give room for death text
 	const nameClass = snake.death ? "mb-0" : "mb-2";

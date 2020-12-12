@@ -3,15 +3,15 @@ import Axios from 'axios';
 import Table from 'react-bootstrap/Table';
 
 const Leaderboard = () => {
-	const [ userData, setUserData ] = useState();
+	const [userData, setUserData] = useState();
 
 	useEffect(() => {
 		Axios.get(`http://localhost:5000/leaderboard/`)
-      .then(res => {
-				const data = res.data.sort((a, b) => (a.wins < b.wins) ? 1 : -1)
-        setUserData(data);
-      });
-	}, [])
+			.then(res => {
+				const data = res.data.sort((a, b) => (a.wins < b.wins) ? 1 : -1);
+				setUserData(data);
+			});
+	}, []);
 	console.log(userData);
 
 	return (
@@ -27,26 +27,26 @@ const Leaderboard = () => {
 			</thead>
 			<tbody>
 				{
-					userData ? 
-					userData.map((data, i) => {
-						return (
-							<tr key={"data" + i}>
-								<td>{i + 1}</td>
-								<td>{data.name}</td>
-								<td>{data.num_games}</td>
-								<td>{data.losses}</td>
-								<td>{data.wins}</td>
-							</tr>
-						)
-					})
-					:
-					<tr>
-						<td>1</td>
-						<td>Loading...</td>
-						<td>Loading...</td>
-						<td>Loading...</td>
-						<td>Loading...</td>
-					</tr>
+					userData ?
+						userData.map((data, i) => {
+							return (
+								<tr key={"data" + i}>
+									<td>{i + 1}</td>
+									<td>{data.name}</td>
+									<td>{data.num_games}</td>
+									<td>{data.losses}</td>
+									<td>{data.wins}</td>
+								</tr>
+							);
+						})
+						:
+						<tr>
+							<td>1</td>
+							<td>Loading...</td>
+							<td>Loading...</td>
+							<td>Loading...</td>
+							<td>Loading...</td>
+						</tr>
 				}
 			</tbody>
 		</Table>

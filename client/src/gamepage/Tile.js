@@ -33,12 +33,12 @@ const TileDiv = styled.div`
 	}
 `;
 
-const Tile = ({type}) => {
-	let color = "white"
-	let dir = ''
+const Tile = ({ type }) => {
+	let color = "white";
+	let dir = '';
 	// Change color based on tile type
-	if (!type || !type.val) { color = "#f1f1f1"} // Default to a wall
-	else if (type.val === 'food') { color = "orange" }
+	if (!type || !type.val) { color = "#f1f1f1"; } // Default to a wall
+	else if (type.val === 'food') { color = "orange"; }
 
 	else if (type.val === 'snake') {
 		if (type.isPlayer) {
@@ -51,9 +51,9 @@ const Tile = ({type}) => {
 
 	return (
 		<td>
-			<TileDiv className={dir} color={color}/>
+			<TileDiv className={dir} color={color} />
 		</td>
-	)
-}
+	);
+};
 
-export default Tile
+export default Tile;
