@@ -15,12 +15,6 @@ const CenteredDiv = styled.div`
 	margin: 2em;
 `;
 
-// TODO DELETE
-// const ShadedText = styled.h1`
-// 	color: white;
-// 	text-shadow: 1px 1px 10px #0072cf;
-// `
-
 const BlockButtonGroup = styled(ButtonGroup)`
 	.btn {
 		padding: .5rem 7em;
@@ -28,7 +22,7 @@ const BlockButtonGroup = styled(ButtonGroup)`
 `;
 
 const socket = socketIOClient('ws://localhost:5000/', { forceNew: true, 'multiplex': false });
-socket.on('connect', () => console.log("COONECTED BOYE"));
+socket.on('connect', () => console.log("Concted to Sockets"));
 
 const defaultGameState = {
 	fps: 10,
@@ -37,10 +31,10 @@ const defaultGameState = {
 	snakes: [],
 	spawnRate: 5,
 	isGameOver: true,
-}
+};
 
 const GamePage = () => {
-	const [gameState, setGameState] = useState({...defaultGameState});
+	const [gameState, setGameState] = useState({ ...defaultGameState });
 	const [showAddSnakeModal, setShowAddSnakeModal] = useState(false);
 	const [showPlayErrorModal, setShowPlayErrorModal] = useState(false);
 
@@ -74,10 +68,10 @@ const GamePage = () => {
 		// Check if we need to leave from the server
 		if (!gameState.isGameOver) {
 			socket.emit('reset', () => {
-				setGameState({...gameState, isGameOver: true});
+				setGameState({ ...gameState, isGameOver: true });
 			});
 		}
-	}
+	};
 
 	const handleKeyDown = (e) => {
 		if (e.keyCode >= 37 && e.keyCode <= 40) {

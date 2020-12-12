@@ -1,5 +1,7 @@
 import React from 'react'
 import Navbar from 'react-bootstrap/Navbar'
+import { Switch, Route, Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button'
 import styled from 'styled-components'
 import SnakeImage from './Snake.png'
 
@@ -22,6 +24,16 @@ const AppNavBar = () => {
 				/>{' '}
 				Snake Arena
 			</Navbar.Brand>
+			<Navbar.Collapse className="justify-content-end">
+				<Switch>
+					<Route path="/leaderboard" exact>
+						<Link to="/home"><Button variant="outline-light">Home</Button></Link>
+					</Route>
+					<Route path="/">
+						<Link to="/leaderboard"><Button variant="outline-light">Leaderboard</Button></Link>
+					</Route>
+				</Switch>
+  		</Navbar.Collapse>
 		</PaddedNavBar>
 	)
 }

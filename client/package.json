@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+	 "react-router-dom": "5.1.2",
     "bootstrap": "latest",
     "lodash": "latest",
     "react": "latest",
@@ -10,8 +11,7 @@
     "react-dom": "latest",
     "react-scripts": "latest",
     "socket.io-client": "^2.3.1",
-    "styled-components": "latest",
-    "web-vitals": "latest"
+    "styled-components": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

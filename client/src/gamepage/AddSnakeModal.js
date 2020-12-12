@@ -11,7 +11,6 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 	const [avoidW, setAvoidW] = useState("");
 	const [alertText, setAlertText] = useState("");
 	const [addedSnakeName, setAddedSnakeName] = useState("");
-	console.log(`name: "${name}", "${type}"`);
 
 	const resetValues = () => {
 		setName("");
@@ -90,7 +89,7 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 			setAlertText("Please add a name!");
 			return;
 		}
-		
+
 		if (type === "3") {
 			if (!foodW || !emptyW || !avoidW) {
 				setAlertText("Please fill smart snake fields!");
@@ -100,8 +99,8 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 		if (isValidSnake()) {
 			const snakeName = name;
 			addSnakeToGameState();
-			setName("")
-			setAlertText("")
+			setName("");
+			setAlertText("");
 			setAddedSnakeName(snakeName);
 		}
 	};
@@ -119,8 +118,8 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 			buttonData={addButtonData}
 		>
 			<Form>
-				{ addedSnakeName ? <Alert variant="success">Snake "{addedSnakeName}" successfully added</Alert> : "" }
-				{ alertText ? <Alert variant="warning">{alertText}</Alert> : "" }
+				{addedSnakeName ? <Alert variant="success">Snake "{addedSnakeName}" successfully added</Alert> : ""}
+				{alertText ? <Alert variant="warning">{alertText}</Alert> : ""}
 
 				<Form.Group>
 					<Form.Control type="text" size="lg" placeholder="Snake name" value={name} onChange={e => setName(e.target.value)} />
@@ -133,15 +132,15 @@ const AddSnakeModal = ({ show, setShow, gameState, setGameState }) => {
 					</Form.Control>
 				</Form.Group>
 				{
-					type === "3" ? 
-					<Form.Group>
-					<br />
-					<Form.Control type="number" size="lg" placeholder="Food weight" value={foodW} onChange={e => setFoodW(e.target.value)} />
-					<br />
-					<Form.Control type="number" size="lg" placeholder="Empty space weight" value={emptyW} onChange={e => setEmptyW(e.target.value)} />
-					<br />
-					<Form.Control type="number" size="lg" placeholder="Snake avoidance weight" value={avoidW} onChange={e => setAvoidW(e.target.value)} />
-				</Form.Group> : ""
+					type === "3" ?
+						<Form.Group>
+							<br />
+							<Form.Control type="number" size="lg" placeholder="Food weight" value={foodW} onChange={e => setFoodW(e.target.value)} />
+							<br />
+							<Form.Control type="number" size="lg" placeholder="Empty space weight" value={emptyW} onChange={e => setEmptyW(e.target.value)} />
+							<br />
+							<Form.Control type="number" size="lg" placeholder="Snake avoidance weight" value={avoidW} onChange={e => setAvoidW(e.target.value)} />
+						</Form.Group> : ""
 				}
 			</Form>
 		</AppModal>

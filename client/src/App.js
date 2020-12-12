@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import AppNavBar from './AppNavBar';
-import GamePage from './gamepage/GamePage'
-import TutorialModal from './TutorialModal'
+import GamePage from './gamepage/GamePage';
+import LeaderboardPage from './leaderboard/LeaderboardPage';
+import TutorialModal from './TutorialModal';
 
 export const SIDE_PADDING = "10em";
 
@@ -14,18 +16,25 @@ const Page = styled.div`
 function App() {
 	const [showTutorial, setShowTutorial] = useState(true);
 
-  return (
-    <div className="App" style={{backgroundColor: "#38a1f2"}}>
-      <header className="App-header">
+	return (
+		<div className="App" style={{ backgroundColor: "#38a1f2" }}>
+			<header className="App-header">
 				<AppNavBar />
-      </header>
-			<TutorialModal show={showTutorial} setShow={setShowTutorial}/>
+			</header>
+			<TutorialModal show={showTutorial} setShow={setShowTutorial} />
 
 			<Page>
-				<GamePage/>
+				<Switch>
+					<Route path="/leaderboard" exact>
+						<LeaderboardPage/>
+					</Route>
+					<Route path="/">
+						<GamePage />
+					</Route>
+				</Switch>
 			</Page>
-    </div>
-  );
+		</div>
+	);
 }
 
 export default App;
