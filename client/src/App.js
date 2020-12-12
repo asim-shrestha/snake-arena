@@ -11,6 +11,10 @@ export const SIDE_PADDING = "10em";
 const Page = styled.div`
 	margin: 4em ${SIDE_PADDING};
 	background-color: inherit;
+
+	@media only screen and (max-width:1100px) {
+		margin: 4em 2em;
+	}
 `;
 
 function App() {

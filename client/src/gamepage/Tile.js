@@ -7,6 +7,11 @@ const TileDiv = styled.div`
 	width: 50px;
 	height: 50px;
 
+	@media only screen and (max-width:875px) {
+		width: 25px;
+		height: 25px;
+	}
+
 	// Below code with help from https://css-tricks.com/snippets/css/css-triangle/
 	&.left {
 		border-top: 25px solid ${props => props.color};

@@ -9,6 +9,11 @@ const PaddedNavBar = styled(Navbar)`
 	background-color: #0072cf;
 	padding-left: 10em;
 	padding-right: 10em;
+
+	@media only screen and (max-width:678px) {
+		padding-left: 2em;
+		padding-right: 2em;
+	}
 `;
 
 const AppNavBar = () => {
