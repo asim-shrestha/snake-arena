@@ -1,15 +1,15 @@
-import React from 'react'
-import Navbar from 'react-bootstrap/Navbar'
+import React from 'react';
+import Navbar from 'react-bootstrap/Navbar';
 import { Switch, Route, Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button'
-import styled from 'styled-components'
-import SnakeImage from './Snake.png'
+import Button from 'react-bootstrap/Button';
+import styled from 'styled-components';
+import SnakeImage from './Snake.png';
 
 const PaddedNavBar = styled(Navbar)`
 	background-color: #0072cf;
 	padding-left: 10em;
 	padding-right: 10em;
-`
+`;
 
 const AppNavBar = () => {
 	return (
@@ -33,9 +33,9 @@ const AppNavBar = () => {
 						<Link to="/leaderboard"><Button variant="outline-light">Leaderboard</Button></Link>
 					</Route>
 				</Switch>
-  		</Navbar.Collapse>
+			</Navbar.Collapse>
 		</PaddedNavBar>
-	)
-}
+	);
+};
 
-export default AppNavBar
+export default AppNavBar;
