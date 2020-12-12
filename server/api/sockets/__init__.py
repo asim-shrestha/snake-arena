@@ -68,7 +68,7 @@ async def reset(sid):
 async def keydown(sid, keyCode):
 	keyCode = int(keyCode)
 	vel = get_velocity(keyCode)
-	await sio.save_session(sid, vel)
+	await sio.save_session(sid, vel.copy())
 	
 def get_velocity(keyCode):
 	if keyCode == 37: return Directions.Left
