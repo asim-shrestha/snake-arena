@@ -7,7 +7,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 app = FastAPI(docs_url='/', title='FallHack 2020 Api')
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:3000", "https://asim-shrestha.github.io"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
