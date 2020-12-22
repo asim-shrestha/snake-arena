@@ -2,3 +2,6 @@ build:
   docker:
     client: js.Dockerfile
     server: python.Dockerfile
+run:
+  client: npm start
+  server: python3 server.py
