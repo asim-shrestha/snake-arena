@@ -1,7 +1,7 @@
 build:
   docker:
-    client: js.Dockerfile
-    server: python.Dockerfile
+    web: js.Dockerfile
+    worker: python.Dockerfile
 run:
-  client: npm start
-  server: python3 server.py
+  web: npm start
+  worker: python3 server.py
