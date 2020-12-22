@@ -1,6 +1,4 @@
 build:
-  config:
-    PORT: 5000
   docker:
     web: js.Dockerfile
     worker: python.Dockerfile
