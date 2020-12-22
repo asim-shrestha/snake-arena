@@ -22,7 +22,7 @@ const BlockButtonGroup = styled(ButtonGroup)`
 	}
 `;
 
-const socket = socketIOClient('ws://localhost:5000/', { forceNew: true, 'multiplex': false });
+const socket = socketIOClient(`ws://localhost:${process.env.PORT || "5000"}/`, { forceNew: true, 'multiplex': false });
 socket.on('connect', () => console.log("Concted to Sockets"));
 
 const defaultGameState = {
@@ -65,7 +65,7 @@ const GamePage = () => {
 			// Test if it was a player and update leaderboard if it was
 			if (snake.id === "player") {
 				if (snake.death === "The game was forcefully ended") { return; }
-				Axios.post(`http://localhost:5000/leaderboard/`, {
+				Axios.post(`http://localhost:${process.env.PORT || 5000}/leaderboard/`, {
 					name: snake.name,
 					wonGame: snake.isAlive,
 				});

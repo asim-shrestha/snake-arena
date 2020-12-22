@@ -15,6 +15,7 @@
     "styled-components": "latest"
   },
   "scripts": {
+	 "prestart": "npm run build --prefix client",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

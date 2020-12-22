@@ -9,4 +9,6 @@ RUN pip install -r requirements.txt
 # Copy rest of files
 COPY ./server /server
 
+ARG PORT
+
 CMD python3 server.py
