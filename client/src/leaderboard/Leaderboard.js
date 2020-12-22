@@ -6,7 +6,7 @@ const Leaderboard = () => {
 	const [userData, setUserData] = useState();
 	console.log(`ATTEMPTING TO SEND TO PORT:${process.env.PORT}`);
 	useEffect(() => {
-		Axios.get(`http://localhost:${process.env.PORT || 5000}/leaderboard/`)
+		Axios.get(`https://snake-arena.herokuapp.com/leaderboard/`)
 			.then(res => {
 				const data = res.data.sort((a, b) => (a.wins < b.wins) ? 1 : -1);
 				setUserData(data);
