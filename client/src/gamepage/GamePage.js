@@ -22,7 +22,7 @@ const BlockButtonGroup = styled(ButtonGroup)`
 	}
 `;
 
-const socket = socketIOClient(`ws://https://snake-arena.herokuapp.com/`, { secure:true,
+const socket = socketIOClient(`https://snake-arena.herokuapp.com/`, { secure:true,
 	reconnect: true,
 	rejectUnauthorized : false,
 	forceNew: true,
