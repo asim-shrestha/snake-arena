@@ -5,6 +5,12 @@ import logging
 from . import SocketHelper
 from . import Directions
 
+print("TESTING")
+print("TESTING")
+print("TESTING")
+print("TESTING")
+print("TESTING")
+print("TESTING")
 sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins=[], logger=True)
 sio_app = socketio.ASGIApp(sio)
 

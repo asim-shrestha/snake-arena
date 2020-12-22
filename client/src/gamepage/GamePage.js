@@ -22,7 +22,12 @@ const BlockButtonGroup = styled(ButtonGroup)`
 	}
 `;
 
-const socket = socketIOClient(`ws://https://snake-arena.herokuapp.com/`, { forceNew: true, 'multiplex': false });
+const socket = socketIOClient(`ws://https://snake-arena.herokuapp.com/`, { secure:true,
+	reconnect: true,
+	rejectUnauthorized : false,
+	forceNew: true,
+	multiplex: false
+});
 socket.on('connect', () => console.log("Concted to Sockets"));
 
 const defaultGameState = {
