@@ -31,11 +31,11 @@ const AppNavBar = () => {
 			</Navbar.Brand>
 			<Navbar.Collapse className="justify-content-end">
 				<Switch>
-					<Route path="Snake-Arena/leaderboard" exact>
-						<Link to="Snake-Arena/home"><Button variant="outline-light">Home</Button></Link>
+					<Route path="/Snake-Arena/leaderboard" exact>
+						<Link to="/Snake-Arena/home"><Button variant="outline-light">Home</Button></Link>
 					</Route>
 					<Route path="/">
-						<Link to="Snake-Arena/leaderboard"><Button variant="outline-light">Leaderboard</Button></Link>
+						<Link to="/Snake-Arena/leaderboard"><Button variant="outline-light">Leaderboard</Button></Link>
 					</Route>
 				</Switch>
 			</Navbar.Collapse>
