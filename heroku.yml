@@ -1,0 +1,4 @@
+build:
+  docker:
+    client: js.Dockerfile
+    server: python.Dockerfile
