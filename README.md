@@ -1,4 +1,3 @@
-![](title.png)
 # The Polyglot
 The final project for CMPT383 by Asim Shrestha.
 
