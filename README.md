@@ -1,4 +1,4 @@
-# Snake Arena
+# Snake Arena 
 The final project for CMPT383 by Asim Shrestha. Play the game [here](https://asim-shrestha.github.io/Snake-Arena/)!
 
 ## Topic Idea
