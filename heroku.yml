@@ -1,3 +1,6 @@
 build:
   docker:
     web: python.Dockerfile
+
+run:
+  web: python3 server.py
