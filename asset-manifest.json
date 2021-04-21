@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/Snake-Arena/static/js/main.bfdeffad.chunk.js",
-    "main.js.map": "/Snake-Arena/static/js/main.bfdeffad.chunk.js.map",
-    "runtime-main.js": "/Snake-Arena/static/js/runtime-main.116e2451.js",
-    "runtime-main.js.map": "/Snake-Arena/static/js/runtime-main.116e2451.js.map",
-    "static/js/2.92bdd10e.chunk.js": "/Snake-Arena/static/js/2.92bdd10e.chunk.js",
-    "static/js/2.92bdd10e.chunk.js.map": "/Snake-Arena/static/js/2.92bdd10e.chunk.js.map",
-    "index.html": "/Snake-Arena/index.html",
-    "static/js/2.92bdd10e.chunk.js.LICENSE.txt": "/Snake-Arena/static/js/2.92bdd10e.chunk.js.LICENSE.txt"
+    "main.js": "/snake-arena/static/js/main.4da9ce33.chunk.js",
+    "main.js.map": "/snake-arena/static/js/main.4da9ce33.chunk.js.map",
+    "runtime-main.js": "/snake-arena/static/js/runtime-main.fa081965.js",
+    "runtime-main.js.map": "/snake-arena/static/js/runtime-main.fa081965.js.map",
+    "static/js/2.e2e429eb.chunk.js": "/snake-arena/static/js/2.e2e429eb.chunk.js",
+    "static/js/2.e2e429eb.chunk.js.map": "/snake-arena/static/js/2.e2e429eb.chunk.js.map",
+    "index.html": "/snake-arena/index.html",
+    "static/js/2.e2e429eb.chunk.js.LICENSE.txt": "/snake-arena/static/js/2.e2e429eb.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.116e2451.js",
-    "static/js/2.92bdd10e.chunk.js",
-    "static/js/main.bfdeffad.chunk.js"
+    "static/js/runtime-main.fa081965.js",
+    "static/js/2.e2e429eb.chunk.js",
+    "static/js/main.4da9ce33.chunk.js"
   ]
 }
