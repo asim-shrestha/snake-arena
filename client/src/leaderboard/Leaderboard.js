@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import Table from 'react-bootstrap/Table';
+import { getUrl } from '../components/BackendUtils';
 
 const Leaderboard = () => {
 	const [userData, setUserData] = useState();
 	console.log(`ATTEMPTING TO SEND TO PORT:${process.env.PORT}`);
 	useEffect(() => {
-		Axios.get(`https://snake-arena.herokuapp.com/leaderboard/`)
+		Axios.get(`${getUrl()}/leaderboard/`)
 			.then(res => {
 				const data = res.data.sort((a, b) => (a.wins < b.wins) ? 1 : -1);
 				setUserData(data);

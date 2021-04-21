@@ -9,6 +9,7 @@ import Configuration from './Configuration';
 import AddSnakeModal from './AddSnakeModal';
 import PlayErrorModal from '../components/PlayErrorModal';
 import Axios from 'axios';
+import { getUrl } from '../components/BackendUtils';
 
 const CenteredDiv = styled.div`
 	display: flex;
@@ -22,7 +23,7 @@ const BlockButtonGroup = styled(ButtonGroup)`
 	}
 `;
 
-const socket = socketIOClient(`https://snake-arena.herokuapp.com/`, { secure:true,
+const socket = socketIOClient(getUrl()+'/', { secure:true,
 	reconnect: true,
 	rejectUnauthorized : false,
 	forceNew: true,
@@ -70,7 +71,7 @@ const GamePage = () => {
 			// Test if it was a player and update leaderboard if it was
 			if (snake.id === "player") {
 				if (snake.death === "The game was forcefully ended") { return; }
-				Axios.post(`https://snake-arena.herokuapp.com/leaderboard/`, {
+				Axios.post(`${getUrl()}/leaderboard/`, {
 					name: snake.name,
 					wonGame: snake.isAlive,
 				});
