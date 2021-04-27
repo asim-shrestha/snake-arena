@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./title.png" alt="Legacy Edition" height="125" />
+  <img src="https://raw.githubusercontent.com/asim-shrestha/snake-arena/master/title.png" alt="Legacy Edition" height="135" />
 </p>
 <p align="center">
   <strong>🐍 Snake Arena 🐍</strong></br>
