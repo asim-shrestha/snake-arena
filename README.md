@@ -1,5 +1,5 @@
 # Snake Arena 
-The final project for CMPT383 by Asim Shrestha. Play the game [here](https://asim-shrestha.github.io/Snake-Arena/)!
+The final project for CMPT383 by Asim Shrestha. Play the game [here](https://asim-shrestha.github.io/snake-arena/)!
 
 ## Topic Idea
 This project is called <b>Snake Arena</b> and is inspired by [BattleSnake](https://play.battlesnake.com/), an online AI competition in which you create your own snake AI to battle other AI's. This project is a web app and serves as both a stand alone game of snake in which you battle amongst AI's and as a testing ground to build the best snake AI for future battle snake tournaments. The rules of the game and how to play may be confusing at first. Luckily, there is a tutorial modal that opens right when you visit the website! Please get a good read through of the modal prior to playing. PS: try maxing out all of the in game settings with one of the AI snakes and enjoy watching it fill up the board.
