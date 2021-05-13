@@ -6,7 +6,7 @@ greenlet==0.4.17
 h11==0.9.0
 httptools==0.1.1
 motor==2.3.0
-pydantic==1.7.2
+pydantic==1.7.4
 python-engineio==3.13.2
 python-socketio==4.6.0
 six==1.15.0
